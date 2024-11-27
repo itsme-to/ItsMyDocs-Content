@@ -1,0 +1,74 @@
+# Script example
+This documentation is still work in progress, if you have any questions or need help, feel free to join our [Discord server](https://discord.gg/itsmybot).
+
+```yaml
+enabled: true
+
+actions:
+  - id: sendMessage
+    args:
+      content: "Hello there !"
+      every: 7 # Send the message every 7 days
+    triggers:
+      - everyDay
+
+  - id: sendMessage
+    args:
+      content: "Hello %user_mention%, welcome to the server !"
+      delay: 5 # Send the message 5 seconds after the trigger
+    triggers:
+      - guildMemberAdd
+    conditions:
+      - id: isBot
+        args:
+          inverse: true
+
+  - id: addReaction
+    args:
+      emoji: "👍"
+      chance: 0.5 # 50% chance to add the reaction
+      cooldown: 5 # Cooldown of 5 seconds
+    triggers:
+      - messageCreate
+    conditions:
+      - id: contentContains
+        args:
+          text:
+            - "Hello"
+            - "Hi"
+  
+  - id: sendMessage
+    args:
+      channel: "935421560355946596"
+      content: "@user_mention%"
+      actions: # List of actions triggered by the sendMessage action
+        - id: deleteMessage
+          args:
+            delay: 5
+    triggers:
+      - guildMemberAdd
+  
+  - actions: # List of actions triggered by the everyHour
+      - id: sendMessage
+        args:
+          channel: "935421560355946596"
+          content: "Hello there !"
+      - id: addReaction
+        args:
+          emoji: "👍"
+    triggers:
+      - everyHour
+    conditions: 
+      - id: bellowMembers
+        args:
+          amount: 100
+          not-met-actions: # List of actions triggered if the condition is not met
+            - id: sendMessage
+              args:
+                content: "There are less than 100 members in the server !"
+
+conditions: 
+  - id: aboveMembers
+    args:
+      amount: 100
+```

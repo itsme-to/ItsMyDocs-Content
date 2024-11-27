@@ -1,0 +1,166 @@
+export const sections = [
+  { title: 'PlaceholderAPI', id: 'placeholder-api' },
+  { title: 'Action Bar', id: 'action-bar' },
+  { title: 'Title & Subtitle', id: 'title-and-subtitle' },
+  { title: 'Custom Placeholder', id: 'custom-placeholder' },
+  { title: 'Sound', id: 'sound' },
+  { title: 'SmallCaps', id: 'small-caps' },
+  { title: 'Quote', id: 'quote' },
+  { title: 'Delay', id: 'delay' },
+  { title: 'Repeat', id: 'repeat' },
+  { title: 'BossBar', id: 'boss-bar' },
+]
+
+
+# Tag system
+
+ItsMyConfig add support of MiniMessage in every message with the symbol prefix. But it's also create custom tags to add more possibilities to your messages.
+
+<div className="not-prose">
+  <Button href="https://docs.advntr.dev/minimessage/format.html" variant="text" arrow="right" children="See miniMessage tags"/>
+</div>
+
+<Properties>
+  <Property name="<placeholder:_placeholder_>">
+    Return the placeholder value
+  </Property>
+  <Property name="<placeholder:_placeholder_:_arg-1_:_arg-2_>">
+    Return the placeholder value with arguments
+  </Property>
+</Properties>
+
+---
+
+## PlaceholderAPI
+`<papi:_placeholder_>`
+
+Return the value of the PlaceholderAPI placeholder
+
+```yaml {{ title: 'Example' }}
+- "<papi:player_name>"
+- "Currently <papi:server_online> players online"
+```
+
+---
+
+## Action Bar
+`<actionbar:_text_>`
+
+Send the message part in the Action Bar
+
+```yaml {{ title: 'Example' }}
+- "<actionbar:'%player% joined the game'>"
+- "%player% joined the game!<actionbar:'Welcome %player%'>"
+```
+
+---
+
+## Title & Subtitle
+`<title:_fadeIn_:_duration_:_fadeOut_:_title_:_subtitle_>` | `<title:_title_:_subtitle_>`
+`<subtitle:_fadeIn_:_duration_:_fadeOut_:_text_>` | `<subtitle:_text_>`
+
+Send the message part in the Title and Subtitle
+
+```yaml {{ title: 'Example' }}
+- "<title:10:70:20:'%player% joined':'the game'>"
+- "%player% joined the game!<title:'welcome':'%player%'>"
+- "<title:'<red>%player% joined the game!'>"
+- "<subtitle:10:70:20:'%player% joined the game'>"
+```
+
+---
+
+## Custom Placeholder
+`<p:_placeholder_>` | `<p:_placeholder_:_arg-1_:_arg-2_>`
+
+Return the value of the custom placeholder and apply the style and color for the color type placeholder.
+
+```yaml {{ title: 'Example' }}
+- "<p:prefix> Denied <p:primary-color>{0}</p> pending teleport request(s)."
+```
+
+---
+
+## Sound
+`<sound:_sound_:_volume_:_pitch_>` | `<sound:_sound_>`
+
+Play a sound to the player
+
+```yaml {{ title: 'Example' }}
+- "$5 has been added to your account. <sound:ENTITY_EXPERIENCE_ORB_PICKUP:1:1>"
+```
+
+---
+
+## SmallCaps
+`<smallcaps>_text_</smallcaps>`
+
+Transform the text in small caps
+
+```yaml {{ title: 'Example' }}
+- "<smallcaps> This is a <red>small caps</red> text </smallcaps>"
+```
+
+---
+
+## Quote
+`<quote>_text_</quote>`
+
+It's a very important tag that blocks other tags within it, very useful for preventing players from parsing placeholders or similar elements.
+
+<Note>
+  For security reasons, the tag can only be used once per message and must be closed.
+</Note>
+
+```yaml {{ title: 'Example' }}
+- "<red>The warp <quote>%warp%</quote> doesn't exist."
+```
+
+---
+
+## Delay
+`<delay:_timeInTick_:"_text_">`
+
+Delay the message for the specified time in tick
+
+```yaml {{ title: 'Example' }}
+- "<red>Teleporaing in 5 seconds...<delay:100:'<green>Teleporting'>"
+```
+
+---
+
+## Repeat
+`<repeat:"_text_":_amount_:_timeInTick_>` | `<repeat:"_text_":_amount_>`
+
+Repeat the message for the specified amount of time
+Support different value: 
+- `<v:repeat_left>` - The number of times left to repeat the message
+- `<v:repeat_total>` - The total number of times the message will be repeated
+- `<v:repeat_count>` - The number of times the message has been repeated
+
+<Note>
+  You can cancel the repeat with the tag `<repeat:cancel>`
+</Note>
+
+```yaml {{ title: 'Example' }}
+- "<repeat:'<red>Teleporting in <v:repeat_left> seconds...':5:20>"
+```
+
+---
+
+## BossBar
+`<bossbar:"_text_":_barProgress_|progress|reverse:_color_:_style_:_timeInTick_>` | `<bossbar:"_text_":_barProgress_|progress|reverse:_color_:_style_>`
+
+Create a boss bar with the specified text, progress, color, style, and time.
+Bar progress can be a number or the value `progress` or `reverse`, if it's `progress` the bar will increase, if it's `reverse` the bar will decrease.
+
+Supported color: `BLUE`, `GREEN`, `PINK`, `PURPLE`, `RED`, `WHITE`, `YELLOW`
+Supported style: `NOTCHED_6`, `NOTCHED_10`, `NOTCHED_12`, `NOTCHED_20`, `SOLID`
+
+<Note>
+  You can remove the boss bar with the tag `<bossbar:cancel>`
+</Note>
+
+```yaml {{ title: 'Example' }}
+- "<bossbar:'Teleporting...':50:RED:SOLID:100>"
+```

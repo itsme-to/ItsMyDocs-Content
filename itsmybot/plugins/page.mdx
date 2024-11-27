@@ -1,0 +1,20 @@
+# Plugins
+
+ItsMyBot has a plugin system that allows you to extend the functionality of your bot.
+
+## How to install a plugin
+To install a plugin, you need to add the plugin folder to the `build/plugins` folder in the bot's directory. For most plugins, it's will automatically create it's own configuration file in the `configs` folder.
+
+## Plugin Management
+You can manage the plugins by using the `plugin` command. The command has the following subcommands:
+### `plugin list`
+Lists all the plugins that are currently installed and information about them.
+
+### `plugin enable <plugin>`
+Enables a plugin.
+
+### `plugin disable <plugin>`
+Disables a plugin.
+
+## Update a plugin
+To update a plugin, you need to replace the plugin folder in the `build/plugins` folder with the new version of the plugin.

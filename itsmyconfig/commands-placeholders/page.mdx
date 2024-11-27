@@ -1,0 +1,36 @@
+
+## Placeholder
+
+<Properties>
+  <Property name="%itsmyconfig_font_latin_<number>%">
+    Transform number to latin number: 5 to V
+  </Property>
+  <Property name="%itsmyconfig_font_smallCaps_<text>%">
+    Transfrom text to smallCaps text: Hello to ʜᴇʟʟᴏ
+  </Property>
+  <Property name="%itsmyconfig_progress_<id>_<value>_<max-value>%">
+    Return custom-progress
+  </Property>
+  <Property name="%itsmyconfig_<placeholder-id>::<arg0>::<arg1>::...%">
+    Return custom-placeholder
+  </Property>
+</Properties>
+
+---
+
+## Commands
+
+<Properties>
+  <Property name="/config <placeholder> <value>" type="itsmyconfig.config">
+    Edit the value of a custom placeholder.
+  </Property>
+  <Property name="/message <player>|@a|@e|@p|@r|@s <message>" type="itsmyconfig.message">
+    Send a message to a player with no prefix and ItsMyConfig support
+  </Property>
+  <Property name="/itmyconfig parse <player>|@a|@e|@p|@r|@s <message>" type="itsmyconfig.parse">
+    Parse a message with ItsMyConfig
+  </Property>
+  <Property name="/itmyconfig reload" type="itsmyconfig.reload">
+    Reload plugin
+  </Property>
+</Properties>

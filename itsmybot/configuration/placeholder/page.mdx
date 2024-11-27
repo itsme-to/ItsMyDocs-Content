@@ -1,0 +1,134 @@
+export const description =
+  'Here you can find all the information on how to configure the placeholder.';
+
+# Placeholder
+ItsMyBot has a system similar to PlaceholderAPI, which you can find for a Minecraft server. ItsMyBot includes several internal extensions, and plugins also bring their own extensions!
+
+You can use placeholders almost anywhere in the configuration. If a placeholder doesn’t work in a location where you’d like it to, don’t hesitate to contact support to have it added. The internal extensions are available in most messages that contain the necessary information!
+
+--- 
+
+# Internal Extensions
+
+## User
+Retrieve the information of a user. It is often available with different prefixes if several users are involved in the message.
+
+- Available like this: `%[prefix]_id%`
+
+```
+%user_id%
+%user_displayname%
+%user_username%
+%user_pfp%
+%user_createdate%
+%user_joindate%
+%user_roles%
+%user_messages%
+```
+
+## Channel
+Retrieve the information of a channel. It is often available with different prefixes if several channels are involved in the message.
+
+- Available like this: `%[prefix]_id%`
+
+```
+%channel_id%
+%channel_name%
+%channel_mention%
+%channel_type%
+%channel_createdate%
+%channel_topic%
+%channel_url%
+```
+
+## Role
+Retrieve the information of a role. It is often available with different prefixes if several channels are involved in the message.
+
+- Available like this: `%[prefix]_id%`
+
+```
+%role_id%
+%role_name%
+%role_mention%
+```
+
+## Guild
+Retrieve the information of a guild. It is often available with different prefixes if several channels are involved in the message.
+
+- Available like this: `%[prefix]_id%`
+
+```
+%guild_id%
+%guild_name%
+%guild_icon%
+%guild_boosts%
+%guild_level%
+%guild_createdate%
+%guild_members%
+%guild_bots%
+%guild_users%
+%guild_roles%
+%guild_channels%
+%guild_emojis%
+%guild_stickers%
+%guild_online_users%
+%guild_online_bots%
+%guild_online_members%
+%guild_idle_members%
+%guild_dnd_members%
+%guild_offline_members%
+```
+
+## Bot
+Retrieve the information of the bot.
+
+```
+%bot_id%
+%bot_username%
+%bot_mention%
+%bot_pfp%
+```
+
+## Time
+Display the time in different formats. It is often available with different prefixes if several channels are involved in the message.
+
+```
+%[prefix]_short_date%   # 11/28/2018
+%[prefix]_long_date%    # November 28, 2018	
+%[prefix]_short_time%   # 9:01 AM	
+%[prefix]_long_time%    # 9:01:00 AM	
+%[prefix]_short%        # November 28, 2018 9:01 AM	
+%[prefix]_long%         # Wednesday, November 28, 2018 9:01 AM	
+%[prefix]_relative%     # 3 years ago	
+```
+
+## Math
+Perform simple math operations.
+
+```
+%math_[operation]%
+```
+
+---
+
+# External Extensions
+External extensions are available when you add the relevant plugins!
+
+## Invite Tracker
+Retrieve the information of Invite Tracker. Need the Invite Tracker plugin
+
+```
+%invitetracker_inviter%
+%invitetracker_invites%
+%invitetracker_regular%
+%invitetracker_bonus%
+%invitetracker_left%
+%invitetracker_fake%
+```
+
+## Tickets
+Retrieve the information of Tickets.  Need the Tickets plugin
+
+```
+%tickets_ticket_amount%
+```

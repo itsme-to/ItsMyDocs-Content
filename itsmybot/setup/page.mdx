@@ -1,0 +1,48 @@
+export const description =
+  'Find all the information on how to configure the ItsMyConfig plugin.'
+
+export const sections = [
+  { title: 'Installation', id: 'installation' },
+  { title: 'Create the bot', id: 'create-the-bot-on-discord' },
+  { title: 'Configuration', id: 'configuration' }
+]
+
+# How to setup ItsMyBot
+Here, you will find all the information needed to launch and install ItsMyBot.
+
+## Prerequisites
+It is recommended to use Linux to host ItsMyBot. You can also use Windows or MacOS, and the instructions are the same.
+
+## Installation
+1. Install [Node.js](https://nodejs.org/en/download/package-manager), with a minimum recommended version of 18.x.
+2. Download the latest version of ItsMyBot from the [website](https://www.itsmybot.xyz/category/bot).
+3. Extract the zip file into a folder.
+4. Open a terminal in the folder.
+5. Install the dependencies with the command `npm install`.
+
+## Create the bot on Discord
+1. Go to the [Discord developers](https://discord.com/developers/applications) site.
+2. Create a new application.
+3. Go to the Bot tab.
+4. Disable the "Public Bot" option.
+5. Enable the "Presence Intent," "Server Members Intent," and "Message Content Intent" options.
+6. Go to the OAuth2 tab.
+7. In the "OAuth2 URL Generator" section, check the "bot" and "applications.commands" scopes.
+8. In the "Bot Permissions" section, check the "Administrator" permission.
+9. Copy the generated link at the bottom of the page and paste it into your browser.
+10. Add the bot to your server (Note: the bot should only be on one server at a time).
+
+## Configuration
+1. Return to the [Discord developers](https://discord.com/developers/applications) site.
+2. Choose your application and go to the "Bot" tab.
+3. Reset the bot token to get a new token.
+4. Copy the token.
+5. Open the `/configs/config.yml` file.
+6. Paste the token into the `token` field.
+7. Add your primary guild ID to the `primary-guild` field.
+8. Save the file.
+9. If you have plugins for the bot, you can add them to the `/build/plugins/` folder.
+
+## Launch the bot
+1. Open a terminal in the bot's folder.
+2. Start the bot with the command `npm run start`.

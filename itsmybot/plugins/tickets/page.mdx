@@ -1,0 +1,45 @@
+# Tickets Plugins
+The tickets plugin allows you to create tickets in your server.
+
+<div className="not-prose mb-16 mt-6 flex gap-3">
+  <Button href="https://builtbybit.com/resources/51625/" arrow="right" children="Purchase" />
+  <Button href="https://discord.gg/itsme-to" children="Support" variant="outline" />
+</div>
+
+## Create a category
+You can create a unlimited amount of categories. Each category can have a different configuration. You just need to create a new file in the `configs/Tickets/categories/` folder or subfolder.
+
+## Commands
+<Properties>
+  <Property name="/add <user>">
+    Add a user to the ticket.
+  </Property>
+  <Property name="/remove <user>">
+    Remove a user from the ticket.
+  </Property>
+  <Property name="/claim">
+    Claim the ticket.
+  </Property>
+  <Property name="/rename">
+    Rename the ticket.
+  </Property>
+  <Property name="/transcript [channel]">
+    Get the transcript of the channel.
+  </Property>
+  <Property name="/close [reason]">
+    Close the ticket.
+  </Property>
+  <Property name="/tickets panel <panel>">
+    Create a ticket creation panel.
+  </Property>
+  <Property name="/tickets history [user]">
+    Get the ticket history of a user.
+  </Property>
+</Properties>
+
+## Placeholders
+<Properties>
+  <Property name="%tickets_ticket_amount%">
+    The amount of tickets.
+  </Property>
+</Properties>

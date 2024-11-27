@@ -1,0 +1,313 @@
+export const description =
+'All the information on how to configure messages, embeds, and components in the ItsMyBot.'
+
+# How to configure Message {{ hide: true }}
+All messages from ItsMyBot can be configured with the following options, offering you even more possibilities.
+
+---
+
+## Message Properties
+All the properties you can use in the message configuration. Every property is optional.
+
+<Properties>
+  <Property name="content" type="string">
+    The content of the message.
+    - Support multi-line content with the pipe character `|`.
+    - Support random content with a list.
+  </Property>
+  <Property name="embeds" type="array">
+    All the embeds to send with the message. Find more information [here](#embed-properties).
+  </Property>
+  <Property name="ephemeral" type="boolean">
+    If true, the bot will send the message as an ephemeral message.
+    - Only work for message from an interaction
+  </Property>
+  <Property name="components" type="array">
+    All the components to send with the message. Find more information [here](#components-properties).
+  </Property>
+  <Property name="disable-mentions" type="boolean">
+    If true, the bot will disable all mentions in the message.
+  </Property>
+  <Property name="files" type="list">
+    All the files to send with the message.
+  </Property>
+</Properties>
+
+<CodeGroup title="Example">
+```yaml {{ title: 'Simple Message' }}
+content: Hello there ! I'm a signle line message.
+ephemeral: true
+```
+
+```yaml {{ title: 'Complex Message' }}
+# Multi-line message, you need to use the pipe character (|).
+content: |
+  Hello there !
+  You need to use the pipe character (|) to create a multi-line message.
+
+# Detailed in the embeds section.
+embeds: []
+
+# If true, the bot will disable all mentions in the message.
+disable-mentions: true
+
+# All the files to send with the message.
+files: 
+  - "https://example.com/file.txt"
+  - "https://example.com/image.png"
+```
+
+```yaml {{ title: 'Advanced Message' }}
+# When using a list, the bot will randomly choose one of the items.
+content: 
+  - Hello there !
+  - Hi, I'm ItsMyBot !
+  - Hello %user_displayname% !
+
+# Detailed in the embeds section.
+embeds: []
+
+# Detailed in the components section.
+components: []
+
+disable-mentions: true
+ephemeral: true
+```
+</CodeGroup>
+
+---
+
+## Embed Properties
+Embeds need to be an array of embeds, you can find all the properties you can use in the embeds configuration, every property is optional.
+
+<Properties>
+  <Property name="author" type="string">
+    The author of the embed.
+    - Support random content with a list.
+  </Property>
+  <Property name="author-icon" type="url">
+    The icon of the author. 
+    - Only work if author is set
+    - Support random content with a list.
+  </Property>
+  <Property name="author-url" type="url">
+    The url of the author.
+    - Only work if author is set
+    - Support random content with a list.
+  </Property>
+  <Property name="url" type="url">
+    The url of the embed.
+    - Only work if title is set
+    - Support random content with a list.
+  </Property>
+  <Property name="title" type="string">
+    The title of the embed.
+    - Support random content with a list.
+  </Property>
+  <Property name="description" type="description">
+    The description of the embed.
+    - Support random content with a list.
+    - Support multi-line content with the pipe character `|`.
+  </Property>
+  <Property name="color" type="color">
+    The color of the embed.
+    - Support random content with a list.
+    - If not set, the bot will use the default color.
+  </Property>
+  <Property name="image" type="url">
+    The image of the embed.
+    - Support random content with a list.
+  </Property>
+  <Property name="thumbnail" type="url">
+    The thumbnail of the embed.
+    - Support random content with a list.
+  </Property>
+  <Property name="footer" type="string">
+    The footer of the embed.
+    - Support random content with a list.
+  </Property>
+  <Property name="footer-icon" type="url">
+    The icon of the footer.
+    - Only work if footer is set
+    - Support random content with a list.
+  </Property>
+  <Property name="timestamp" type="boolean">
+    If true, the bot will add a timestamp to the embed.
+  </Property>
+  <Property name="fields" type="array">
+    All the fields of the embed.
+  </Property>
+</Properties>
+
+**Field Properties**
+
+<Properties>
+  <Property name="name" type="string">
+    The name of the field. Required.
+  </Property>
+  <Property name="value" type="string">
+    The value of the field. Required.
+  </Property>
+  <Property name="inline" type="boolean">
+    If true, the field will be inline.
+  </Property>
+</Properties>
+
+<CodeGroup title="Example">
+```yaml {{ title: 'Simple Embeds' }}
+embeds: 
+  - title: Hello there !
+    description: I'm a signle line embed.
+    color: "#FF0000"
+    timestamp: true
+```
+
+```yaml {{ title: 'Complex Embeds' }}
+embeds: 
+  - title: Hello there !
+    description: |
+      I'm a multi-line embed.
+      You need to use the pipe character (|) to create a multi-line embed.
+    color: "#FF0000"
+    timestamp: true
+    image: "https://example.com/image.png"
+    thumbnail: "https://example.com/thumbnail.png"
+    
+  - title: Hi, I'm ItsMyBot !
+    fields:
+      - name: "Field 1"
+        value: "Value 1"
+      - name: "Field 2"
+        value: "Value 2"
+    color: "#00FF00"
+    timestamp: true
+    image: "https://example.com/image2.png"
+    thumbnail: "https://example.com/thumbnail2.png"
+```
+
+```yaml {{ title: 'Advanced Embeds' }}
+embeds: 
+  - title: 
+      - Hello there !
+      - Hi, I'm ItsMyBot !
+      - Hello %user_displayname% !
+    description: |
+      I'm a multi-line embed.
+      You need to use the pipe character (|) to create a multi-line embed.
+    color: 
+      - "#FF0000"
+      - "#00FF00"
+      - "#0000FF"
+    timestamp: true
+    fields:
+      - name: "Field 1"
+        value: "Value 1"
+        inline: true
+      - name: "Field 2"
+        value: "Value 2"
+    image: 
+      - "https://example.com/image.png"
+      - "https://example.com/image2.png"
+      - "https://example.com/image3.png"
+    thumbnail: 
+      - "https://example.com/thumbnail.png"
+      - "https://example.com/thumbnail2.png"
+      - "https://example.com/thumbnail3.png"
+```
+</CodeGroup>
+
+---
+
+## Components Properties
+Components need to be an array of components, you can find all the properties you can use in the components configuration, every property is optional.
+
+### Button Properties
+<Properties>
+  <Property name="custom-id" type="string">
+    The custom id of the button.
+    - Support random content with a list.
+  </Property>
+  <Property name="style" type="string">
+    The style of the button.
+    - Support random content with a list.
+    - Can be `primary`, `secondary`, `success`, `danger`, `link`.
+  </Property>
+  <Property name="label" type="string">
+    The label of the button.
+    - Support random content with a list.
+  </Property>
+  <Property name="emoji" type="emoji">
+    The emoji of the button.
+    - Support random content with a list.
+  </Property>
+  <Property name="url" type="url">
+    The url of the button.
+    - Only work if style is `link` or not defined.
+    - Support random content with a list.
+  </Property>
+</Properties>
+
+### Select Menu Properties
+<Properties>
+  <Property name="custom-id" type="string">
+    The custom id of the select menu.
+  </Property>
+  <Property name="placeholder" type="string">
+    The style of the button.
+    - Support random content with a list.
+    - Can be `primary`, `secondary`, `success`, `danger`, `link`.
+  </Property>
+  <Property name="min-values" type="integer">
+    Minimun number of values that can be selected, default to 0.
+  </Property>
+  <Property name="max-values" type="integer">
+    Maximum number of values that can be selected, default to 1.
+  </Property>
+  <Property name="options" type="array">
+    All the options of the select menu.
+  </Property>
+</Properties>
+
+**Options Properties**
+<Properties>
+  <Property name="label" type = "string">
+    The label of the option. Required.
+  </Property>
+  <Property name = "value" type = "string" >
+    The value of the option. Required.
+  </Property>
+  <Property name = "emoji" type = "emoji">
+    The emoji of the option.
+  </Property>
+  <Property name = "description" type = "string">
+    The description of the option.
+  </Property>
+  <Property name = "default" type = "boolean">
+    If true, the option will be selected by default.
+  </Property>
+</Properties>
+
+<CodeGroup title="Example">
+```yaml {{ title: 'Simple Components' }}
+components: 
+  "1":
+    - type: "button"
+      label: "First Button"
+      style: "primary"
+      custom-id: "button1"
+    - type: "button"
+      label: "Second Button"
+      style: "link"
+      url: "https://example.com"
+      emoji: "🔗"
+  "2":
+    - type: "select-menu"
+      custom-id: "select1"
+      placeholder: "Select an option"
+      options:
+        - label: "Option 1"
+          value: "option1"
+        - label: "Option 2"
+          value: "option2"
+```
+</CodeGroup>

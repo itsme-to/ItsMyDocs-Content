@@ -1,0 +1,59 @@
+## All Actions
+
+export const sections = []
+
+<Properties>
+  <Property name="addReaction" type="Required Args: emoji - string">
+    Add a reaction to a message.
+  </Property>
+  <Property name="addRole" type="Required Args: role - string|string[]">
+    Add a role to a member.
+  </Property>
+  <Property name="deleteMessage">
+    Delete a message.
+  </Property>
+  <Property name="pinMessage">
+    Pin a message.
+  </Property>
+  <Property name="removeReaction" type="Optional Args: emoji - string">
+    Remove a reaction from a message.
+  </Property>
+  <Property name="removeRole" type="Optional Args: role - string|string[]">
+    Remove a role from a member.
+  </Property>
+  <Property name="reply">
+    Reply to a message or an interaction.
+
+    **Can triggers actions**
+  </Property>
+  <Property name="sendMessage" type="Required Args: content (message configuration) Optional Args: channel - string">
+    Send a message.
+
+    **Can triggers actions**
+  </Property>
+  <Property name="sendPrivateMessage">
+    Send a private message.
+
+    **Can triggers actions**
+  </Property>
+  <Property name="startThread" type="Optional Args: name - string">
+    Start a thread.
+
+    **Can triggers actions**
+  </Property>
+  <Property name="unpinMessage">
+    Unpin a message.
+  </Property>
+  <Property name="openForm" type="Optional Args: form - string">
+    Open a form. Requires the Forms plugin.
+  </Property>
+  <Property name="addInviteBonus" type="Required Args: amount - number">
+    Add bonus invites to a user. Requires the Invite Traker plugin.
+  </Property>
+  <Property name="removeInviteBonus" type="Required Args: amount - number">
+    Remove bonus invites to a user. Requires the Invite Traker plugin.
+  </Property>
+  <Property name="setInviteBonus" type="Required Args: amount - number">
+    Set bonus invites to a user. Requires the Invite Traker plugin.
+  </Property>
+</Properties>

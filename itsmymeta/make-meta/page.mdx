@@ -1,0 +1,203 @@
+
+## Configuration
+
+The ItsMyMeta plugin allows for comprehensive and detailed configuration, tailored to your specific needs. This section introduces you to the various parameters and how they're utilized in the configuration process.
+
+In the example, each item within this category consists of an id and a type. The id uniquely identifies each piece of metadata, while the type defines the kind of data to be stored (e.g., string, integer, double).
+
+The subsequent sections delve deeper into each parameter and its possible values, providing a comprehensive guide to configuring ItsMyMeta to your specific needs.
+
+```yaml
+meta:
+- id: "MetaId"
+type: #
+```
+
+---
+
+## Type
+This parameter defines the type of data or 'meta' you wish to store
+
+### Supported type:
+| Type | Example | Description | 
+|---|---|---|
+| `string` | Hello world | A sequence of characters or text. |
+| `integer` | 12345 | A whole number without decimals. |
+| `double` | 123.45 | A number that can have decimal places. |
+
+<CodeGroup>
+
+```yaml {{ title: 'Usage' }}
+type: TEXT
+```
+```yaml {{ title: 'Example' }}
+meta:
+- id: example_integer
+type: integer
+```
+
+</CodeGroup>
+
+---
+
+## Team
+Team Mode offers the functionality to assign identical values to all players within a designated team.
+
+### Supported team:
+| ID | Description |
+| --- | --- | 
+| `player` | All players have their own value |
+| `global` | All players have the same value |
+| `superiorSkyblock2` | All members of the island have the same value |
+| `bentoBox` | All members of the island have the same value |
+| `factionsUUID` | All members of the faction have the same value |
+| `huskTown` | All members of the town have the same value |
+
+<CodeGroup>
+
+```yaml {{ title: 'Usage' }}
+team: TEXT 
+```
+```yaml {{ title: 'Example' }}
+meta:
+- id: island_tag
+type: string
+team: superiorSkyblock2
+```
+
+</CodeGroup>
+
+---
+
+## Default value
+This parameter sets the default value for a particular meta.
+<CodeGroup>
+
+```yaml {{ title: 'Usage' }}
+default: TEXT | NUMBER 
+```
+```yaml {{ title: 'Example' }}
+meta:
+- id: example_text
+type: string
+default: "Hello World"
+
+- id: example_number
+type: double
+default: 5.6
+```
+
+</CodeGroup>
+
+---
+
+## Maximum amount
+This allows you to set a cap for the meta value. For unlimited values, set this parameter to -1.
+
+<CodeGroup>
+
+```yaml {{ title: 'Usage' }}
+max: NUMBER
+```
+```yaml {{ title: 'Example' }}
+meta:
+  - id: prestige
+    type: integer
+    max: 100
+```
+
+</CodeGroup>
+
+
+---
+
+
+## Placeholder
+Set the value of a meta the same of placeholder
+
+
+<CodeGroup>
+
+```yaml {{ title: 'Usage' }}
+placeholder: FORMULA
+```
+```yaml {{ title: 'Example' }}
+meta:
+  - id: leaderboard_key_crate
+    type: integer
+    placeholder: "%crazycrates_example_total%"
+
+  - id: kdr
+    type: integer
+    placeholder: "%statistic_player_kills% / %player_death%"
+```
+
+</CodeGroup>
+
+
+---
+
+
+## Currency
+Transform the meta as a currency
+<CodeGroup>
+
+```yaml {{ title: 'Usage' }}
+currency:
+  enabled: BOOLEAN
+  name: TEXT
+  payable: BOOLEAN
+  vault: BOOLEAN
+  local: BOOLEAN
+  commands:
+    - TEXT
+```
+```yaml {{ title: 'Example' }}
+meta:
+  - id: golds
+    type: integer
+    currency:
+      enabled: true
+      name: '&#ffc300Golds ✫'
+      payable: true
+      vault: false
+      local: true
+      commands:
+        - gold
+        - golds
+```
+
+</CodeGroup>
+
+
+---
+
+
+## Statistics
+The statistics function permits the metadata value to increment according to specific triggers.
+
+[Trigger system](https://plugins.auxilor.io/effects/configuring-an-effect) see here for a how-to
+<CodeGroup>
+
+```yaml {{ title: 'Usage' }}
+statistics: 
+  - id: TEXT
+    trigger: TEXT
+    filters: LIST
+    conditions: LIST
+```
+```yaml {{ title: 'Example' }}
+meta:
+  - id: diamond_mined
+    type: integer
+    statistics: 
+      - id: "diamond" 
+        trigger: mine_block
+        filters:
+          blocks:
+            - diamond_ore
+        conditions: []
+```
+
+</CodeGroup>
+

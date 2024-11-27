@@ -1,0 +1,456 @@
+
+export const sections = [
+  { title: 'String Type', id: 'string-type' },
+  { title: 'Color Type', id: 'color-type' },
+  { title: 'Animation Type', id: 'animation-type' },
+  { title: 'Random Type', id: 'random-type' },
+  { title: 'Colored Text Type', id: 'colored-text-type' },
+  { title: 'Math Type', id: 'math-type' },
+  { title: 'Progress Bar Type', id: 'progress-bar-type' },
+  { title: 'Requirements', id: 'requirements' }
+]
+
+# Custom Placeholder
+
+Custom Placeholders allow you to create your own placeholders and use them in all plugins that are compatible with PlaceholderAPI. For example, you can have one universal prefix for all messages, regardless of the plugin, and be able to change this prefix easily. Placeholder currently has 4 different types, each with its own features.
+
+You can now use the placeholder `%itsmyconfig_yourPlaceholder%` to display it in the game.
+
+### Argument
+
+We have added the ability to add arguments to custom placeholders.
+
+```yaml {{ title: 'config.yml' }}
+custom-placeholder:
+  yourPlaceholder: 
+    value: "This is your custom placeholder {0} !"
+```
+
+You can use the placeholder `%itsmyconfig_yourPlaceholder_Enjoy%` to display your argument directly in the placeholder.
+
+---
+
+## String Type
+
+String placeholder is the default type, it allows you to create a simple placeholder with a string value. You don't need to specify the type, placeholder will automatically detect it.
+
+```yaml {{ title: 'config.yml' }}
+custom-placeholder:
+  your-placeholder-id: 
+    value: "This is your custom placeholder"
+    type: "string" # Optional
+```
+
+### How to use the placeholder
+<Row>
+  <Col>
+
+    **PlaceholderAPI**
+    <Properties>
+      <Property name="%itsmyconfig_<placeholder>%">
+        Return the placeholder value
+      </Property>
+      <Property name="%itsmyconfig_<placeholder>_<arg-1>::<arg-2>%">
+        Return the placeholder value with arguments
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col>
+
+    **Placeholder Tag**
+    <Properties>
+      <Property name="<placeholder:_placeholder_>">
+        Return the placeholder value
+      </Property>
+      <Property name="<placeholder:_placeholder_:_arg-1_:_arg-2_>">
+        Return the placeholder value with arguments
+      </Property>
+    </Properties>
+
+  </Col>
+</Row>
+
+---
+
+## Color Type
+
+Color placeholder allows you to create a placeholder with a color value. You can use the color name or the hex color code. It's automatically create different placeholders for each format.
+
+```yaml {{ title: 'config.yml' }}
+custom-placeholder:
+  your-placeholder-id: 
+    value: "red"
+    # Supported value: black, dark_blue, dark_green, dark_aqua, dark_red, dark_purple, gold, gray, dark_gray, blue, green, aqua, red, light_purple, yellow, or white.
+    # You can also use hex color code: #FF0000
+    type: "color"
+    bold: true # Optional
+    underlined: false # Optional
+    italic: false # Optional
+    strikethrough: false # Optional
+    obfuscated: false # Optional
+```
+
+### How to use the placeholder
+
+<Row>
+  <Col>
+
+    **PlaceholderAPI**
+    <Properties>
+      <Property name="%itsmyconfig_<placeholder>%">
+        Return the value
+      </Property>
+      <Property name="%itsmyconfig_<placeholder>_legacy%">
+        Return the value in legacy format: `&c` for color and `&#FF0000` for hex
+      </Property>
+      <Property name="%itsmyconfig_<placeholder>_console%">
+        Return the value in console format: `§c` for color and `§x§F§F§0§0§0§0` for hex
+      </Property>
+      <Property name="%itsmyconfig_<placeholder>_mini%">
+        Return the value in miniMessage format: `<red>` for color and `<#FF0000>` for hex
+      </Property>
+      <Property name="%itsmyconfig_<placeholder>_mini_<text>%">
+        Return the value in miniMessage format but close the tag too: `<red>text</red>` for color and `<#FF0000>text<#FF0000>` for hex
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col>
+
+    **Placeholder Tag**
+    <Properties>
+      <Property name="<placeholder:_placeholder_>">
+        Directly apply the style and color to the follow text, you can close the tag with `</placeholder>`. It's directly return the miniMessage format. 
+      </Property>
+    </Properties>
+
+  </Col>
+</Row>
+
+---
+
+## Animation Type
+
+Animation placeholder allows you to create a placeholder with a list of values that will be displayed one after the other at a specified interval.
+
+```yaml {{ title: 'config.yml' }}
+custom-placeholder:
+  your-placeholder-id: 
+    values: # Attention, values not value
+      - "<green>Animation !"
+      - "<yellow>Animation !"
+      - "<gold>Animation !"
+      - "<red>Animation !"
+      - "<pink>Animation !"
+    type: "animation"
+    interval: 20
+```
+
+### How to use the placeholder
+
+<Row>
+  <Col>
+
+    **PlaceholderAPI**
+    <Properties>
+      <Property name="%itsmyconfig_<placeholder>%">
+        Return the value
+      </Property>
+      <Property name="%itsmyconfig_<placeholder>_<arg-1>::<arg-2>%">
+        Return the value with arguments
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col>
+
+    **Placeholder Tag**
+    <Properties>
+      <Property name="<placeholder:_placeholder_>">
+        Return the value
+      </Property>
+      <Property name="<placeholder:_placeholder_:_arg-1_:_arg-2_>">
+        Return the value with arguments
+      </Property>
+    </Properties>
+
+  </Col>
+</Row>
+
+---
+
+## Random Type
+
+Random placeholder allows you to create a placeholder with a list of values that will be randomly displayed.
+
+```yaml {{ title: 'config.yml' }}
+custom-placeholder:
+  your-placeholder-id: 
+    values: # Attention, values not value
+      - "Rock"
+      - "Paper"
+      - "Scissors"
+    type: "random"
+```
+
+### How to use the placeholder
+
+<Row>
+  <Col>
+
+    **PlaceholderAPI**
+    <Properties>
+      <Property name="%itsmyconfig_<placeholder>%">
+        Return the value
+      </Property>
+      <Property name="%itsmyconfig_<placeholder>_<arg-1>::<arg-2>%">
+        Return the value with arguments
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col>
+
+    **Placeholder Tag**
+    <Properties>
+      <Property name="<placeholder:_placeholder_>">
+        Return the value
+      </Property>
+      <Property name="<placeholder:_placeholder_:_arg-1_:_arg-2_>">
+        Return the value with arguments
+      </Property>
+    </Properties>
+
+  </Col>
+</Row>
+
+---
+
+## Colored Text Type
+
+Colored Text placeholder allows you to create a placeholder with a text that contains color and style and get output in different formats.
+
+```yaml {{ title: 'config.yml' }}
+custom-placeholder:
+  your-placeholder-id: 
+    value: "<#d4acfb>Server Name</#d4acfb>"
+    type: colored_text
+```
+
+### How to use the placeholder
+
+<Row>
+  <Col>
+
+    **PlaceholderAPI**
+    <Properties>
+      <Property name="%itsmyconfig_<placeholder>%">
+        Return the value in miniMessage format: `<red>` for color and `<#FF0000>` for hex
+      </Property>
+      <Property name="%itsmyconfig_<placeholder>_legacy%">
+        Return the value in legacy format: `&c` for color and `&#FF0000` for hex
+      </Property>
+      <Property name="%itsmyconfig_<placeholder>_console%">
+        Return the value in console format: `§c` for color and `§x§F§F§0§0§0§0` for hex
+      </Property>
+      <Property name="%itsmyconfig_<placeholder>_mini%">
+        Return the value in miniMessage format: `<red>` for color and `<#FF0000>` for hex
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col>
+
+    **Placeholder Tag**
+    <Properties>
+      <Property name="<placeholder:_placeholder_>">
+        Return the value in miniMessage format: `<red>` for color and `<#FF0000>` for hex
+      </Property>
+    </Properties>
+
+  </Col>
+</Row>
+
+---
+
+## Math Type
+
+Math placeholder allows you to create a placeholder with a math expression that will be calculated and displayed.
+
+```yaml {{ title: 'config.yml' }}
+custom-placeholder:
+  your-placeholder-id: 
+    value: "1 + 1"
+    type: "math"
+    rounding: HALF_UP # Supported value: HALF_UP, HALF_DOWN, HALF_EVEN, UP, DOWN, CEILING, FLOOR. Optional
+    precision: 1 # Number of decimal places. Optional
+```
+
+### How to use the placeholder
+
+<Row>
+  <Col>
+
+    **PlaceholderAPI**
+    <Properties>
+      <Property name="%itsmyconfig_<placeholder>%">
+        Return the value
+      </Property>
+      <Property name="%itsmyconfig_<placeholder>_<arg-1>::<arg-2>%">
+        Return the value with arguments
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col>
+
+    **Placeholder Tag**
+    <Properties>
+      <Property name="<placeholder:_placeholder_>">
+        Return the value
+      </Property>
+      <Property name="<placeholder:_placeholder_:_arg-1_:_arg-2_>">
+        Return the value with arguments
+      </Property>
+    </Properties>
+
+  </Col>
+</Row>
+
+---
+
+## Progress Bar Type
+
+Progress Bar placeholder allows you to create a placeholder with a progress bar that will be displayed.
+
+```yaml {{ title: 'config.yml' }}
+custom-placeholder:
+  your-placeholder-id: 
+    value: ⦁●⚫●⚫●⚫●⚫●⚫●⚫●⚫●⚫●⚫●⚫●⦁
+    type: progress_bar
+    completed-color: '&a'
+    progress-color: '&e'
+    remaining-color: '&7'
+```
+
+### How to use the placeholder
+
+<Row>
+  <Col>
+
+    **PlaceholderAPI**
+    <Properties>
+      <Property name="%itsmyconfig_<placeholder>_<value>_<max-value>%">
+        Return the progress bar
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col>
+
+    **Placeholder Tag**
+    <Properties>
+      <Property name="<placeholder:_placeholder_:_value_:_max-value_>">
+        Return the progress bar
+      </Property>
+    </Properties>
+
+  </Col>
+</Row>
+
+---
+
+## Requirements
+
+Conditional placeholder is a system that help you to create more complex placeholder for create requirement and more.
+
+When the placeholder `%itsmyconfig_yourPlaceholder%` is parsed, the placeholder `%player_name%` will be check if is the same placeholder will be return `Hello Skyssy`
+
+### Comparators
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: (==, >=, <=, !=, >, <)
+input: "NUMBER"
+output: "NUMBER"
+```
+```yaml {{ title: 'Example' }}
+custom-placeholder:
+  your_placeholder:
+    value: "&aRequirement passed !"
+    requirements:
+      haveMoney:
+        type: ">="
+        input: "%vault_eco_balance%"
+        output: "100"
+        deny: "Don't have enought money"
+```
+</CodeGroup>
+
+Compares `input:` with `output:`.
+
+| Comparator | Description |
+| --- | --- | 
+| `==` | `input:` equals to `output:` |
+| `>=` | `input:` greater than or equals to `output:` |
+| `<=` | `input:` less than or equals to `output:` |
+| `!=` | `input:` not equals to `output:` |
+| `>` | `input:` greater than `output:` |
+| `<` | `input:` less than `output:` |
+
+
+### String
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: (string equals/string contains) [ignorecase] [ignorecolor]
+input: "TEXT"
+output: "TEXT"
+```
+
+```yaml {{ title: 'Example' }}
+custom-placeholder:
+  your_placeholder:
+    value: "&aRequirement passed !"
+    requirements:
+      areYouSkyssy:
+        type: "string equals ignorecolor"
+        input: "%player_name%"
+        output: "Skyssy"
+        deny: "You are not Skyssy"
+```
+</CodeGroup>
+
+Checks if `input:` matches `output:`
+
+To invert the requirement (Check if the input doesn't match the output) you can simply add the exclamation mark before the type name (like this `type: "!string equals ignorecase"`).
+
+
+### Regex matches
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: regex matches
+input: "TEXT"
+regex: "EXPRESSION"
+```
+
+```yaml {{ title: 'Example' }}
+custom-placeholder:
+  your_placeholder:
+    value: "&aRequirement passed !"
+    requirements:
+      areYouSkyssy:
+        type: "string equals ignorecolor"
+        input: "%player_name%"
+        output: "Skyssy"
+        deny: "You are not Skyssy"
+```
+</CodeGroup>
+
+Checks if `input:` contains the regular expression in `regex:`.
+Visit [this site](https://regexr.com/) to create regular expressions easily.
+
+To invert the requirement (Check if the input doesn't contain the regular expression) you can simply add the exclamation mark before the type name (like this `type: "!regex matches"`).!
+

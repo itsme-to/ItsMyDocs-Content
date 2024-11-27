@@ -1,0 +1,51 @@
+# Invite Traker Plugin
+This plugin allows you to track invites of users. 
+
+<div className="not-prose mb-16 mt-6 flex gap-3">
+  <Button href="https://builtbybit.com/resources/51993/" arrow="right" children="Purchase" />
+  <Button href="https://discord.gg/itsme-to" children="Support" variant="outline" />
+</div>
+
+## Commands
+<Properties>
+  <Property name="/invites [user]">
+    Shows the invites of the user.
+  </Property>
+  <Property name="/inviter <user>">
+    Shows the inviter of the user.
+  </Property>
+  <Property name="/invite add-bonus <user> <amount>">
+    Adds bonus invites to the user.
+  </Property>
+  <Property name="/invite remove-bonus <user> <amount>">
+    Removes bonus invites from the user.
+  </Property>
+  <Property name="/invite set-bonus <user> <amount>">
+    Sets the bonus invites of the user.
+  </Property>
+  <Property name="/leaderboard invites">
+    Shows the invites leaderboard.
+  </Property>
+</Properties>
+
+## Placeholders
+<Properties>
+  <Property name="%invitetracker_inviter%">
+    The inviter of the user.
+  </Property>
+  <Property name="%invitetracker_invites%">
+    The amount of invites the user has.
+  </Property>
+  <Property name="%invitetracker_regular%">
+    The amount of regular invites the user has.
+  </Property>
+  <Property name="%invitetracker_bonus%">
+    The amount of bonus invites the user has.
+  </Property>
+  <Property name="%invitetracker_left%">
+    The amount of left invites the user has.
+  </Property>
+  <Property name="%invitetracker_fake%">
+    The amount of fake invites the user has.
+  </Property>
+</Properties>

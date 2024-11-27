@@ -1,0 +1,49 @@
+
+
+# Placeholders
+ItsMyMeta supports a wide range of placeholders that can be used to retrieve meta values, leaderboard positions, and other related data.
+
+
+| Name | Example | Description |
+|---|---|---|
+| `%itsmymeta_<meta>%` | 251272.26 or 'Hello world' | Get meta value |
+| `%itsmymeta_<meta>_fixed%` | 251272 | Get fixed meta value |
+| `%itsmymeta_<meta>_formatted%` | 251.27k  | Get formatted meta value |
+| `%itsmymeta_<meta>_leaderboard_<1-100>%` | 251272.26 | Get player's meta value at chosen position |
+| `%itsmymeta_<meta>_leaderboard_<1-100>_name%` | Skyssy | Get player name at chosen position |
+| `%itsmymeta_<meta>_leaderboard_<1-100>_fixed%` | 251272 | Get player's fixed meta value at chosen position |
+| `%itsmymeta_<meta>_leaderboard_<1-100>_formatted%` | 251.27k | Get player's formatted meta value at chosen position |
+| `%itsmymeta_<meta>_leaderboard_position%` | 1 | Get the player's position in the leaderboard |
+| `%itsmymeta_<meta>_leaderboard_position_percent%` | 0.1 | Get the percentage of the player's position in the leaderboard |
+| `%itsmymeta_<meta>_leaderboard_total%` | 567812349.65 | Get the sum total of all players in a meta |
+| `%itsmymeta_<meta>_leaderboard_total_players%` | 1000 | Get the number of players in the leaderboard |
+
+
+# Commands
+
+<Properties>
+  <Property name="/meta set <player> <meta> <value>" type="itsmymeta.set">
+    Set the meta value for a player
+  </Property>
+  <Property name="/meta give <player> <meta> <value>" type="itsmymeta.give">
+    Increase the value of a meta for a player
+  </Property>
+  <Property name="/meta take <player> <meta> <value>" type="itsmymeta.take">
+    Reduce the value of a meta for a player
+  </Property>
+  <Property name="/meta reset <player> <meta>" type="itsmymeta.reset">
+    Reset the value of a meta for a player
+  </Property>
+  <Property name="/meta info <player> <meta>" type="itsmymeta.info">
+    Get meta value for a player
+  </Property>
+  <Property name="/meta currency <command> <meta> | /<meta> <command>" type="itsmymeta.command.<meta>.<command>">
+    Currency based command.
+  </Property>
+  <Property name="/meta list" type="itsmymeta.list">
+    Get meta list
+  </Property>
+  <Property name="/meta reload" type="itsmymeta.reload">
+    Reload ItsMyMeta
+  </Property>
+</Properties>
