@@ -14,6 +14,7 @@ All the properties you can use in the message configuration. Every property is o
     The content of the message.
     - Support multi-line content with the pipe character `|`.
     - Support random content with a list.
+    - Hide a line if it's start with `show=false`. (Useful with placeholder)
   </Property>
   <Property name="embeds" type="array">
     All the embeds to send with the message. Find more information [here](#embed-properties).
@@ -44,6 +45,7 @@ ephemeral: true
 content: |
   Hello there !
   You need to use the pipe character (|) to create a multi-line message.
+  show=%show_message% Hide the line if it's return 'false'.
 
 # Detailed in the embeds section.
 embeds: []
@@ -108,6 +110,7 @@ Embeds need to be an array of embeds, you can find all the properties you can us
     The description of the embed.
     - Support random content with a list.
     - Support multi-line content with the pipe character `|`.
+    - Hide a line if it's start with `show=false`. (Useful with placeholder)
   </Property>
   <Property name="color" type="color">
     The color of the embed.
@@ -147,9 +150,14 @@ Embeds need to be an array of embeds, you can find all the properties you can us
   </Property>
   <Property name="value" type="string">
     The value of the field. Required.
+    - Support multi-line content with the pipe character `|`.
+    - Hide a line if it's start with `show=false`. (Useful with placeholder)
   </Property>
   <Property name="inline" type="boolean">
     If true, the field will be inline.
+  </Property>
+  <Property name='show' type='string'>
+    Hide the field if it's return `false`. (Useful with placeholder)
   </Property>
 </Properties>
 
@@ -205,6 +213,7 @@ embeds:
         inline: true
       - name: "Field 2"
         value: "Value 2"
+        show: '%show_field2%' # Hide the field if it's return 'false'.
     image: 
       - "https://example.com/image.png"
       - "https://example.com/image2.png"
