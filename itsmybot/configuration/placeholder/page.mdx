@@ -55,21 +55,27 @@ Retrieve the information of a role. It is often available with different prefixe
 ## Guild
 Retrieve the information of a guild. It is often available with different prefixes if several channels are involved in the message.
 
-- Available like this: `%[prefix]_id%`
-
 ```
 %guild_id%
 %guild_name%
 %guild_icon%
 %guild_boosts%
 %guild_level%
-%guild_createdate%
+%guild_create_date%
+%guild_afk_channel%
+%guild_afk_timeout%
+%guild_verification_level%
 %guild_members%
 %guild_bots%
 %guild_users%
 %guild_roles%
+%guild_roles_list%
 %guild_channels%
+%guild_voice_channels%
+%guild_text_channels%
 %guild_emojis%
+%guild_regular_emojis%
+%guild_animated_emojis%
 %guild_stickers%
 %guild_online_users%
 %guild_online_bots%
@@ -107,6 +113,33 @@ Perform simple math operations.
 
 ```
 %math_[operation]%
+```
+
+## Owner
+Perform simple math operations.
+
+```
+%owner_id%
+%owner_username%
+%owner_displayname%
+%owner_pfp%
+%owner_createdate%
+%owner_joindate%
+%owner_roles%
+%owner_messages%
+```
+
+## Peformance
+Perform simple math operations.
+
+```
+%performance_total_memory%
+%performance_used_memory%
+%performance_free_memory%
+%performance_free_memory_percent%
+%performance_uptime%
+%performance_cpu_usage%
+%performance_cpu_usage_percent%
 ```
 
 ---
