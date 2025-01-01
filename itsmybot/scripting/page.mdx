@@ -51,8 +51,9 @@ actions:
   - actions: # List of actions triggered by the everyHour
       - id: sendMessage
         args:
-          channel: "935421560355946596"
           content: "Hello there !"
+        mutators:
+          channel: "935421560355946596"
       - id: addReaction
         args:
           emoji: "👍"
