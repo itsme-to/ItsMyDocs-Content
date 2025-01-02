@@ -3,10 +3,10 @@
 export const sections = []
 
 <Properties>
-  <Property name="addReaction" type="Required Args: emoji - string">
+  <Property name="addReaction" type="Required Args: value - string">
     Add a reaction to a message.
   </Property>
-  <Property name="addRole" type="Required Args: role - string|string[]">
+  <Property name="addRole" type="Required Args: value - string|string[]">
     Add a role to a member.
   </Property>
   <Property name="deleteMessage">
@@ -15,10 +15,10 @@ export const sections = []
   <Property name="pinMessage">
     Pin a message.
   </Property>
-  <Property name="removeReaction" type="Optional Args: emoji - string">
+  <Property name="removeReaction" type="Optional Args: value - string">
     Remove a reaction from a message.
   </Property>
-  <Property name="removeRole" type="Optional Args: role - string|string[]">
+  <Property name="removeRole" type="Optional Args: value - string|string[]">
     Remove a role from a member.
   </Property>
   <Property name="reply">
@@ -41,7 +41,7 @@ export const sections = []
 
     **Can triggers actions**
   </Property>
-  <Property name="startThread" type="Optional Args: name - string">
+  <Property name="startThread" type="Optional Args: value - string">
     Start a thread.
 
     **Can triggers actions**
@@ -49,7 +49,7 @@ export const sections = []
   <Property name="unpinMessage">
     Unpin a message.
   </Property>
-  <Property name="openForm" type="Optional Args: form - string">
+  <Property name="openForm" type="Optional Args: value - string">
     Open a form. Requires the Forms plugin.
   </Property>
   <Property name="addInviteBonus" type="Required Args: amount - number">
