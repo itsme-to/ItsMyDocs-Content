@@ -13,6 +13,9 @@ Here, you will find all the information needed to launch and install ItsMyBot.
 ## Prerequisites
 It is recommended to use Linux to host ItsMyBot. You can also use Windows or MacOS, and the instructions are the same.
 
+### Memory Recommendations
+ItsMyBot is optimized for efficiency, using less than 200MB of RAM under normal conditions. However, it is recommended to allocate between 500MB and 1GB of RAM to ensure smooth operation.
+
 ## Installation
 1. Install [Node.js](https://nodejs.org/en/download/package-manager), with a minimum recommended version of 18.x.
 2. Download the latest version of ItsMyBot from the [website](https://builtbybit.com/resources/24369/).
@@ -32,8 +35,7 @@ It is recommended to use Linux to host ItsMyBot. You can also use Windows or Mac
 9. Copy the generated link at the bottom of the page and paste it into your browser.
 10. Add the bot to your server (Note: the bot should only be on one server at a time).
 
-
-## Run the bot for the first time to generate the files.
+## Run the bot for the first time to generate the files
 1. Open a terminal in the bot's folder.
 2. Start the bot with the command `npm run start`.
 
@@ -51,3 +53,6 @@ It is recommended to use Linux to host ItsMyBot. You can also use Windows or Mac
 ## Launch the bot
 1. Open a terminal in the bot's folder.
 2. Start the bot with the command `npm run start`.
+
+## Pterodactyl Panel Configuration
+For users deploying the bot on a Pterodactyl panel, ensure that the `Main file` is set to: `build/core/index.js`
