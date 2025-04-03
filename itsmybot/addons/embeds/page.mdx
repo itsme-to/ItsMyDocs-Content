@@ -11,12 +11,25 @@ Embeds is a simple plugin that allows you to create embeds and message with a ya
 Create a new file in the `configs/Embeds/embeds` folder or one of its subfolders. This file will contain the configuration for your message, including the content, embeds, and components.
 For the syntax of the configuration file, see the [Message configuration](/itsmybot/configuration/message) page.
 
+## Update an Embed
+To make an embed updateable, you need to add the `update-time` property to the embed configuration. The value of this property is the time in minutes after which the embed will be updated. The embed will be updated with the new content in the configuration and update all the placeholders.
+
+## Example
+```yaml
+content: "Hello %user_mention% !"
+update-time: 5
+embeds:
+  - title: "%mcstatus_example_players% Players"
+    description: "Server is %mcstatus_example_status% !"
+    color: "#ff0000"
+```
+
 ## Commands
 <Properties>
-  <Property name="/embed send <embed> [channel] [update]">
+  <Property name="/embed send <embed> [channel]">
     Send an embed message to a channel.
   </Property>
-  <Property name="/embed edit <message-link> [embed] [update]">
+  <Property name="/embed edit <message-link> [embed]">
     Send an embed message to a channel.
   </Property>
 </Properties>
