@@ -1,64 +1,165 @@
-## All Actions
+# Actions
+The actions are the main part of the bot. They are used to perform actions when a trigger is met. You can find more information about how to use them [here](/itsmybot/scripting/).
 
-export const sections = []
+---
+# All Actions
 
-<Properties>
-  <Property name="addReaction" type="Required Args: value - string">
-    Add a reaction to a message.
-  </Property>
-  <Property name="addRole" type="Required Args: value - string|string[]">
-    Add a role to a member.
-  </Property>
-  <Property name="deleteMessage">
-    Delete a message.
-  </Property>
-  <Property name="pinMessage">
-    Pin a message.
-  </Property>
-  <Property name="removeReaction" type="Optional Args: value - string">
-    Remove a reaction from a message.
-  </Property>
-  <Property name="removeRole" type="Optional Args: value - string|string[]">
-    Remove a role from a member.
-  </Property>
-  <Property name="reply">
-    Reply to a message or an interaction.
+## addReaction
+Add a reaction to a message. The reaction can be an emoji or a custom emoji.
 
-    **Can triggers actions**
-  </Property>
-  <Property name="sendMessage" type="Required Args: content (message configuration)">
-    Send a message.
+```yaml
+- id: addReaction
+  args:
+    value: "✅"
+```
 
-    **Can triggers actions**
-  </Property>
-  <Property name="editMessage" type="Required Args: content (message configuration)">
-    Edit a message.
+## addRole
+Add a role to a member. The role can be a string or an array of strings.
 
-    **Can triggers actions**
-  </Property>
-  <Property name="sendPrivateMessage">
-    Send a private message.
+```yaml
+- id: addRole
+  args:
+    value: "Admin" # Role ID or name
+- id: addRole
+  args:
+    value:
+      - "Admin" # Role ID or name
+      - "Moderator" # Role ID or name
+```
 
-    **Can triggers actions**
-  </Property>
-  <Property name="startThread" type="Optional Args: value - string">
-    Start a thread.
+## deleteMessage
+Delete a message.
 
-    **Can triggers actions**
-  </Property>
-  <Property name="unpinMessage">
-    Unpin a message.
-  </Property>
-  <Property name="openForm" type="Optional Args: value - string">
-    Open a form. Requires the Forms plugin.
-  </Property>
-  <Property name="addInviteBonus" type="Required Args: amount - number">
-    Add bonus invites to a user. Requires the Invite Traker plugin.
-  </Property>
-  <Property name="removeInviteBonus" type="Required Args: amount - number">
-    Remove bonus invites to a user. Requires the Invite Traker plugin.
-  </Property>
-  <Property name="setInviteBonus" type="Required Args: amount - number">
-    Set bonus invites to a user. Requires the Invite Traker plugin.
-  </Property>
-</Properties>
+```yaml
+- id: deleteMessage
+```
+
+## pinMessage
+Pin a message.
+
+```yaml
+- id: pinMessage
+```
+
+## removeReaction
+Remove a reaction from a message. The reaction can be an emoji or a custom emoji. If no value is provided, every reaction is removed.
+
+```yaml
+- id: removeReaction
+  args:
+    value: "✅"
+```
+
+## removeRole
+Remove a role from a member. The role can be a string or an array of strings.
+
+```yaml
+- id: removeRole
+  args:
+    value: "Admin" # Role ID or name
+- id: removeRole
+  args:
+    value:
+      - "Admin" # Role ID or name
+      - "Moderator" # Role ID or name
+```
+
+## reply
+Reply to a message or an interaction. You can see the [message configuration](/itsmybot/configuration/message) for more information.
+**Can triggers actions**
+
+```yaml
+- id: reply
+  args:
+    content: "Hello there !"
+```
+## sendMessage
+Send a message. You can see the [message configuration](/itsmybot/configuration/message) for more information.
+**Can triggers actions**
+
+```yaml
+- id: sendMessage
+  args:
+    embeds:
+      - title: "Hello there !"
+        description: "This is a test message"
+        color: "#00ff00"
+```
+
+## editMessage
+Edit a message. You can see the [message configuration](/itsmybot/configuration/message) for more information.
+
+```yaml
+- id: editMessage
+  args:
+    content: "Hello there !"
+    embeds:
+      - title: "This is an edit"
+        description: "This is a test message"
+```
+
+## sendPrivateMessage
+Send a private message. You can see the [message configuration](/itsmybot/configuration/message) for more information.
+
+```yaml
+- id: sendPrivateMessage
+  args:
+    content: "Hello %user_mention% !"
+```
+
+## startThread
+Start a thread. If the value is a array, a random value will be selected.
+***Can triggers actions**
+
+```yaml
+- id: startThread
+  args:
+    value: "Hello there !"
+- id: startThread
+  args:
+    value:
+      - "Thread 1"
+      - "Thread 2"
+```
+
+## unpinMessage
+Unpin a message.
+
+```yaml
+- id: unpinMessage
+```
+
+## openForm
+Open a form. Requires the Forms addon.
+
+```yaml
+- id: openForm
+  args:
+    value: "form_id" # Form ID
+```
+
+## addInviteBonus
+Add bonus invites to a user. Requires the [Invite Traker](/itsmybot/addons/invites/) addon.
+
+```yaml
+- id: addInviteBonus
+  args:
+    amount: 5 # Amount of bonus invites
+```
+
+## removeInviteBonus
+Remove bonus invites to a user. Requires the [Invite Traker](/itsmybot/addons/invites/) addon.
+
+```yaml
+- id: removeInviteBonus
+  args:
+    amount: 5 # Amount of bonus invites
+```
+## setInviteBonus
+Set bonus invites to a user. Requires the [Invite Traker](/itsmybot/addons/invites/) addon.
+
+```yaml
+- id: setInviteBonus
+  args:
+    amount: 5 # Amount of bonus invites
+```

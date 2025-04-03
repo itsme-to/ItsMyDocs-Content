@@ -1,24 +1,66 @@
-## All Mutators
+# Mutators
+Mutators allow you to change the context of the actions. For example, you can change the member that the action is executed on, or the channel that the action is executed in. 
 
-export const sections = []
+```yaml
+actions:
+  - id: sendMessage
+    args:
+      content: "%content%"
+    triggers:
+      - messageCreate
+    mutators:
+      channel: "logs" # Channel ID or name
+```
+Here, the mutator `channel` is used to change the channel of the action to the channel with ID `logs`. The action will be executed in the channel with ID `logs` instead of the channel where the trigger was fired.
 
-<Properties>
-  <Property name="member">
-    Change the member of the triggered actions.
-  </Property>
-  <Property name="channel">
-    Change the channel of the triggered actions.
-  </Property>
-  <Property name="role">
-    Change the role of the triggered actions.
-  </Property>
-  <Property name="user">
-    Change the user of the triggered actions.
-  </Property>
-  <Property name="content">
-    Change the content of the triggered actions.
-  </Property>
-  <Property name="guild">
-    Change the guild of the triggered actions.
-  </Property>
-</Properties>
+---
+
+# All Mutators
+
+## member
+This can be used to change the member that the action is executed on.
+
+```yaml
+mutators:
+  member: "123456789012345678" # Member ID or name
+```
+
+## channel
+This can be used to change the channel that the action is executed in.
+
+```yaml
+mutators:
+  channel: "123456789012345678" # Channel ID or name
+```
+
+## role
+This can be used to change the role that the action is executed on.
+
+```yaml
+mutators:
+  role: "123456789012345678" # Role ID or name
+```
+
+## user
+This can be used to change the user that the action is executed on.
+
+```yaml
+mutators:
+  user: "123456789012345678" # User ID or name
+```
+
+## content
+This can be used to change the content of the action.
+
+```yaml
+mutators:
+  content: "Hello %user_mention% !"
+```
+
+## guild
+This can be used to change the guild that the action is executed in.
+
+```yaml
+mutators:
+  guild: "123456789012345678" # Guild ID or name
+```

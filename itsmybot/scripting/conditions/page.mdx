@@ -1,5 +1,6 @@
 # Conditions
-Just like actions, conditions are defined by an `id` and a set of `args`.
+Just like actions, conditions are defined by an `id` and a set of `args`. Condition is a way to check if a certain condition is met before executing an action or something else.
+You can define conditions in script, custom commands, embeds, commands, and more.
 
 ```yaml
 - id: hasPermission
@@ -17,13 +18,10 @@ As shown in the example above, all conditions can include an optional `invert` a
 ```
 
 Setting `invert: true` will negate the condition, meaning it will only be true if the original condition is false.
-Alternatively, you can prefix the condition ID with `!` for the same effect:
 
-```yaml
-- id: '!aboveMembers'
-  args:
-    amount: 100
-```
+<Note>
+  Alternatively you can prefix the condition ID with `!` to invert it. For example, `!hasPermission` is equivalent to `hasPermission` with `invert: true`.
+</Note>
 
 ---
 
@@ -48,7 +46,7 @@ actions:
 In this example, if the user does **not** have the `MANAGE_MESSAGES` permission, the bot will react with ❌. Otherwise, it will react with ✅.
 
 ---
-# List of Conditions
+# All Conditions
 ## aboveMembers
 Check if the amount of members in a guild is above a certain number.
 

@@ -1,75 +1,94 @@
-# Script example
-This documentation is still work in progress, if you have any questions or need help, feel free to join our [Discord server](https://discord.gg/itsmybot).
+# Configuring an action / script
+The configuration of an action is done in the `actions` section of the script. Each action has its own set of arguments, triggers, conditions and mutators. The action is executed when the trigger is fired and the conditions are met.
 
+You can have actions in script, custom commands and more.
+
+## Example Action Config
 ```yaml
-enabled: true
-
 actions:
   - id: sendMessage
     args:
       content: "Hello there !"
-      every: 7 # Send the message every 7 days
-    triggers:
-      - everyDay
-
-  - id: sendMessage
-    args:
-      content: "Hello %user_mention%, welcome to the server !"
-      delay: 5 # Send the message 5 seconds after the trigger
-    triggers:
-      - guildMemberAdd
-    conditions:
-      - id: isBot
-        args:
-          inverse: true
-
-  - id: addReaction
-    args:
-      emoji: "👍"
-      chance: 0.5 # 50% chance to add the reaction
-      cooldown: 5 # Cooldown of 5 seconds
-    triggers:
-      - messageCreate
-    conditions:
-      - id: contentContains
-        args:
-          text:
-            - "Hello"
-            - "Hi"
-  
-  - id: sendMessage
-    args:
-      channel: "935421560355946596"
-      content: "@user_mention%"
-      actions: # List of actions triggered by the sendMessage action
-        - id: deleteMessage
-          args:
-            delay: 5
-    triggers:
-      - guildMemberAdd
-  
-  - actions: # List of actions triggered by the everyHour
-      - id: sendMessage
-        args:
-          content: "Hello there !"
-        mutators:
-          channel: "935421560355946596"
-      - id: addReaction
-        args:
-          emoji: "👍"
+      chance: 0.25 # 25% chance to send the message
     triggers:
       - everyHour
-    conditions: 
-      - id: bellowMembers
+    mutators:
+      channel: "935421560355946596" # Channel ID or name
+    conditions:
+      - id: aboveMembers
         args:
-          amount: 100
-          not-met-actions: # List of actions triggered if the condition is not met
-            - id: sendMessage
-              args:
-                content: "There are less than 100 members in the server !"
+          amount: 100 # Number of members in the server
+```
+The above example will send a message "Hello there !" every hour in the channel with ID `935421560355946596` if the server has more than 100 members. The message will only be sent with a 25% chance.
 
-conditions: 
-  - id: aboveMembers
-    args:
-      amount: 100
+## Understanding the Sections
+
+<Properties>
+  <Property name="id">
+    The id of the action. You can find the list of all actions [here](/itsmybot/scripting/actions).
+  </Property>
+  <Property name="args">
+    The arguments of the action. Each action has its own set of arguments. There are also some common arguments that can be used in all actions. You can find the list of all default arguments [here](#optional-arguments).
+  </Property>
+  <Property name="triggers">
+    The list of triggers that will trigger the action. You can find the list of all triggers [here](/itsmybot/scripting/triggers). The action is executed when the trigger is fired.
+  </Property>
+  <Property name="conditions">
+    The list of conditions that must be met for the action to be executed. You can find the list of all conditions [here](/itsmybot/scripting/conditions). The action is executed only if the conditions is met.
+  </Property>
+  <Property name="mutators">
+    The list of mutators that will be applied to the action. You can find the list of all mutators [here](/itsmybot/scripting/mutators). The mutators are applied to the action to edit the context of the action.
+  </Property>
+</Properties>
+
+## Optional Arguments
+Some actions have optional arguments that can be used to modify the behavior of the action. These arguments are not required, but can be useful in certain situations.
+<Properties>
+  <Property name="delay">
+    The delay in seconds before the action is executed. This can be used to delay the action for a certain amount of time. Default is 0 (no delay).
+  </Property>
+  <Property name="chance">
+    The chance of the action being executed. This can be used to execute the action with a certain probability. Default is 1 (100%).
+  </Property>
+  <Property name="cooldown">
+    The cooldown in seconds before the action can be executed again. This can be used to prevent the action from being executed too frequently.
+  </Property>
+  <Property name="every">
+    Specify the action to activate every X time. This can be used to execute the action every X time.
+  </Property>
+  <Property name="actions">
+    Specific to only some actions. The actions inside will be triggered by the actions. Example: `sendMessage` action can trigger the `deleteMessage` action.
+    ```yaml
+    actions:
+      - id: sendMessage
+        triggers:
+          - messageCreate
+        args:
+          content: "Hello there !"
+          actions:
+            - id: deleteMessage
+              args:
+                delay: 5
+    ```
+  </Property>
+</Properties>
+
+## Action Chain
+You can chain multiple actions together by using the `actions` property. This allows you to execute multiple actions in a single script. The actions are executed in the order they are defined.
+With the action chain, multiple actions can be impacted by the same trigger. With the mutators & conditions that apply to all actions in the chain.
+```yaml
+actions:
+  - triggers:
+      - messageCreate
+    actions:
+      - id: reply
+        args:
+          content: "Hello there !"
+      - id: addReaction
+        args:
+          value: "✅"
+    conditions:
+      - id: inChannel
+        args:
+          value: "935421560355946596" # Channel ID or name
 ```

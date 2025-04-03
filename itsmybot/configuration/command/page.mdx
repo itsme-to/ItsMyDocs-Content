@@ -43,13 +43,13 @@ All the properties you can use in the message configuration. Every property is o
 
 <CodeGroup title="Example">
 ```yaml {{ title: 'Simple Command' }}
-plugin:
+addons:
   # Configuration can be added here.
   permission: "ADMINISTRATOR" # Here for example, the command will require the administrator permission.
-  description: "Manage plugins."
+  description: "Manage addons."
   subcommands:
     list:
-      description: "Show the list of plugins."
+      description: "Show the list of addons."
 ```
 
 ```yaml {{ title: 'Complex Command' }}
