@@ -1,39 +1,231 @@
-## All Conditions
+# Conditions
+Just like actions, conditions are defined by an `id` and a set of `args`.
 
-export const sections = []
+```yaml
+- id: hasPermission
+  args:
+    value: "MANAGE_MESSAGES" # Permission ID or name
+    invert: true # Optional
+```
+As shown in the example above, all conditions can include an optional `invert` argument:
 
-<Properties>
-  <Property name="aboveMembers" type="Required Args: amount - number">
-    Check if the amount of members in a guild is above a certain number.
-  </Property>
-  <Property name="bellowMembers" type="Required Args: amount - number">
-    Check if the amount of members in a guild is bellow a certain number.
-  </Property>
-  <Property name="content" type="Required Args: value - string[]">
-    Check if a content of an action equals a certain text.
-  </Property>
-  <Property name="contentContains" type="Required Args: value - string[]">
-    Check if a content of an action contains a certain text.
-  </Property>
-  <Property name="expression" type="Required Args: input - string, operator - string, output - string">
-    Check if an expression is true.
-  </Property>
-  <Property name="hasRole" type="Required Args: role - string, Optionnal Args: inherit - boolean">
-    Check if a user has a certain role.
-  </Property>
-  <Property name="isBot">
-    Check if a user is a bot.
-  </Property>
-  <Property name="inChannel" type="Required Args: value - string[]">
-    Check if a message is in a certain channel or category.
-  </Property>
-  <Property name="inTicket">
-    Check if a message is in a ticket. Requires [Tickets](https://builtbybit.com/resources/51625/) plugin.
-  </Property>
-  <Property name="regex" type="Required Args: value - string">
-    Check if a content of an action matches a certain regex.
-  </Property>
-  <Property name="startsWith" type="Required Args: value - string[]">
-    Check if a content of an action starts with a certain text.
-  </Property>
-</Properties>
+```yaml
+- id: aboveMembers
+  args:
+    amount: 100
+    invert: true # Optional
+```
+
+Setting `invert: true` will negate the condition, meaning it will only be true if the original condition is false.
+Alternatively, you can prefix the condition ID with `!` for the same effect:
+
+```yaml
+- id: '!aboveMembers'
+  args:
+    amount: 100
+```
+
+---
+
+# Not Met Actions
+If a condition is specific to an action (i.e., listed under that action's `conditions: []`), you can define `not-met-actions`.
+These are fallback actions executed when the condition is not met. Here's an example:
+
+```yaml
+actions:
+  - id: addReaction
+    args:
+      value: "✅"
+    conditions:
+      - id: hasPermission
+        args:
+          value: "MANAGE_MESSAGES"
+        not-met-actions:
+          - id: addReaction
+            args:
+              value: "❌"
+```
+In this example, if the user does **not** have the `MANAGE_MESSAGES` permission, the bot will react with ❌. Otherwise, it will react with ✅.
+
+---
+# List of Conditions
+## aboveMembers
+Check if the amount of members in a guild is above a certain number.
+
+```yaml
+- id: aboveMembers
+  args:
+    amount: 100
+```
+
+## anyOf
+Check if any of the conditions are true.
+
+```yaml
+- id: anyOf
+  args:
+    conditions: 
+      - id: aboveMembers
+        args:
+          amount: 100
+      - id: bellowMembers
+        args:
+          amount: 50
+```
+
+## atLeastOf
+Check if at least a certain amount of conditions are true.
+
+```yaml
+- id: atLeastOf
+  args:
+    amount: 2
+    conditions: 
+      - id: aboveMembers
+        args:
+          amount: 100
+      - id: '!isBot'
+      - id: 'isUser'
+        args:
+          value: "123456789012345678"
+```
+
+## bellowMembers
+Check if the amount of members in a guild is bellow a certain number.
+
+```yaml
+- id: bellowMembers
+  args:
+    amount: 100
+```
+
+## content
+Check if a content of an action equals a certain text.
+
+```yaml
+- id: content
+  args:
+    value: 
+      - "Hello"
+      - "World"
+    ignore-case: true  # Optional
+- id: content
+  args:
+    value: "Hello"
+```
+
+## contentContains
+Check if a content of an action contains a certain text.
+
+```yaml
+- id: contentContains
+  args:
+    value: 
+      - "Hello"
+      - "World"
+    ignore-case: true # Optional
+- id: contentContains
+  args:
+    value: "Hello"
+```
+## isExpressionTrue
+Check if an expression is true.
+
+```yaml
+- id: isExpressionTrue
+  args:
+    value: "%server_channels% >= 0"
+```
+
+## hasPermission
+Check if a user has a certain permission.
+
+```yaml
+- id: hasPermission
+  args:
+    value: "MANAGE_MESSAGES" # Permission name
+- id: hasPermission
+  args:
+    value: 
+      - "MANAGE_MESSAGES" # Permission name
+      - "MANAGE_CHANNELS" # Permission name
+```
+
+## hasRole
+Check if a user has a certain role.
+
+```yaml
+- id: hasRole
+  args:
+    value: "Admin" # Role ID or name
+    inherit: true # Optional
+- id: hasRole
+  args:
+    value: 
+      - "Admin" # Role ID or name
+      - "Moderator" # Role ID or name
+```
+
+## isBot
+Check if a user is a bot.
+
+```yaml
+- id: isBot
+```
+
+## isUser
+Check if a user is a certain user
+```yaml
+- id: isUser
+  args:
+    value: "123456789012345678" # User ID
+- id: isUser
+  args:
+    value: 
+      - "123456789012345678" # User ID
+      - "987654321098765432" # User ID
+```
+
+## inChannel
+Check if a message is in a certain channel or category.
+
+```yaml
+- id: inChannel
+  args:
+    value: 
+      - "123456789012345678" # Channel ID or name // Category ID or name
+- id: inChannel
+  args:
+    value: "123456789012345678" # Channel ID or name // Category ID or name
+```
+
+## inTicket
+Check if a message is in a ticket. Requires [Tickets](https://builtbybit.com/resources/51625/) plugin.
+
+```yaml
+- id: inTicket
+```
+
+## regex
+Check if a content of an action matches a certain regex.
+
+```yaml
+- id: regex
+  args:
+    value: "^[a-zA-Z0-9]+$" # Regex pattern
+```
+
+## startsWith
+Check if a content of an action starts with a certain text.
+
+```yaml
+- id: startsWith
+  args:
+    value: 
+      - "Hello"
+      - "World"
+    ignore-case: true # Optional
+- id: startsWith
+  args:
+    value: "Hello"
+```
