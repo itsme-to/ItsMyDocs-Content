@@ -1,304 +1,385 @@
 export const description =
 'All the information on how to configure messages, embeds, and components in the ItsMyBot.'
 
-# How to configure Message {{ hide: true }}
-All messages from ItsMyBot can be configured with the following options, offering you even more possibilities.
+# How to configure Message
+All messages from ItsMyBot can be configured with the following options, offering you even more possibilities. The messages support [placehalders](/itsmybot/configuration/placeholders/) in every property. You can use them to create dynamic messages that change based on the context.
+
+```yaml {{ title: 'Example' }}
+content: "Hello %user_mention% !"
+embeds:
+  - title: "%mcstatus_example_players% Players"
+    description: "Server is %mcstatus_example_status% !"
+    color: "#ff0000"
+components:
+  "1":
+    - type: "button"
+      label: "First Button"
+      style: "primary"
+      custom-id: "button1"
+    - type: "button"
+      label: "Second Button"
+      style: "link"
+      url: "https://example.com"
+      emoji: "🔗"
+```
 
 ---
 
-## Message Properties
+# Message Properties
 All the properties you can use in the message configuration. Every property is optional.
 
-<Properties>
-  <Property name="content" type="string">
-    The content of the message.
-    - Support multi-line content with the pipe character `|`.
-    - Support random content with a list.
-    - Hide a line if it's start with `show=false`. (Useful with placeholder)
-  </Property>
-  <Property name="embeds" type="array">
-    All the embeds to send with the message. Find more information [here](#embed-properties).
-  </Property>
-  <Property name="ephemeral" type="boolean">
-    If true, the bot will send the message as an ephemeral message.
-    - Only work for message from an interaction
-  </Property>
-  <Property name="components" type="array">
-    All the components to send with the message. Find more information [here](#components-properties).
-  </Property>
-  <Property name="disable-mentions" type="boolean">
-    If true, the bot will disable all mentions in the message.
-  </Property>
-  <Property name="files" type="list">
-    All the files to send with the message.
-  </Property>
-</Properties>
-
-<CodeGroup title="Example">
-```yaml {{ title: 'Simple Message' }}
-content: Hello there ! I'm a signle line message.
-ephemeral: true
-```
-
-```yaml {{ title: 'Complex Message' }}
-# Multi-line message, you need to use the pipe character (|).
+## content
+The content of the message. Supports multi-line content with the pipe character `|`, random content with a list, and hide a line if it starts with `show=false`. This is useful when using placeholders.
+```yaml
 content: |
   Hello there !
   You need to use the pipe character (|) to create a multi-line message.
   show=%show_message% Hide the line if it's return 'false'.
 
-# Detailed in the embeds section.
-embeds: []
-
-# If true, the bot will disable all mentions in the message.
-disable-mentions: true
-
-# All the files to send with the message.
-files: 
-  - "https://example.com/file.txt"
-  - "https://example.com/image.png"
-```
-
-```yaml {{ title: 'Advanced Message' }}
 # When using a list, the bot will randomly choose one of the items.
-content: 
+content:
   - Hello there !
   - Hi, I'm ItsMyBot !
   - Hello %user_displayname% !
+```
 
-# Detailed in the embeds section.
-embeds: []
-
-# Detailed in the components section.
-components: []
-
-disable-mentions: true
+## ephemeral
+If true, the bot will send the message as an ephemeral message. This only works for messages from an interaction.
+```yaml
 ephemeral: true
+```
+
+## disable-mentions
+If true, the bot will disable all mentions in the message.
+```yaml
+disable-mentions: true
+```
+
+--- 
+
+# embeds
+Embeds are a way to send rich messages with images, titles, and descriptions. You can use them to create beautiful messages with a lot of information.
+You can find all the properties you can use in the embeds configuration, every property is optional.
+
+```yaml
+embeds:
+  - title: Hello there !
+    description: I'm a signle line embed.
+    color: "#FF0000"
+    timestamp: true
+  - title: This is a second embed
+    description: I'm a second embed.
+```
+
+Every value bellow is to be used in the `embeds` property.
+
+## author
+The author of the embed. Supports random content with a list.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+author: Hello there !
+# When using a list, the bot will randomly choose one of the items.
+author: 
+  - Hello there !
+  - Hi, I'm ItsMyBot !
+  - Hello %user_displayname% !
+```
+
+```yaml {{ title: 'Example' }}
+embeds:
+  - title: 'Author Example'
+    author: 'Hello there !'
 ```
 </CodeGroup>
 
----
+## author-icon
+The icon of the author. Only works if author is set. Supports random content with a list.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+author-icon: https://example.com/icon.png
+```
 
-## Embed Properties
-Embeds need to be an array of embeds, you can find all the properties you can use in the embeds configuration, every property is optional.
+```yaml {{ title: 'Example' }}
+embeds:
+  - title: 'Author Example'
+    author: 'Hello there !'
+    author-icon: 'https://example.com/icon.png'
+```
+</CodeGroup>
 
-<Properties>
-  <Property name="author" type="string">
-    The author of the embed.
-    - Support random content with a list.
-  </Property>
-  <Property name="author-icon" type="url">
-    The icon of the author. 
-    - Only work if author is set
-    - Support random content with a list.
-  </Property>
-  <Property name="author-url" type="url">
-    The url of the author.
-    - Only work if author is set
-    - Support random content with a list.
-  </Property>
-  <Property name="url" type="url">
-    The url of the embed.
-    - Only work if title is set
-    - Support random content with a list.
-  </Property>
-  <Property name="title" type="string">
-    The title of the embed.
-    - Support random content with a list.
-  </Property>
-  <Property name="description" type="description">
-    The description of the embed.
-    - Support random content with a list.
-    - Support multi-line content with the pipe character `|`.
-    - Hide a line if it's start with `show=false`. (Useful with placeholder)
-  </Property>
-  <Property name="color" type="color">
-    The color of the embed.
-    - Support random content with a list.
-    - If not set, the bot will use the default color.
-  </Property>
-  <Property name="image" type="url">
-    The image of the embed.
-    - Support random content with a list.
-  </Property>
-  <Property name="thumbnail" type="url">
-    The thumbnail of the embed.
-    - Support random content with a list.
-  </Property>
-  <Property name="footer" type="string">
-    The footer of the embed.
-    - Support random content with a list.
-  </Property>
-  <Property name="footer-icon" type="url">
-    The icon of the footer.
-    - Only work if footer is set
-    - Support random content with a list.
-  </Property>
-  <Property name="timestamp" type="boolean">
-    If true, the bot will add a timestamp to the embed.
-  </Property>
-  <Property name="fields" type="array">
-    All the fields of the embed.
-  </Property>
-</Properties>
+## author-url
+The url of the author. Only works if author is set. Supports random content with a list.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+author-url: https://itsme.to/
+```
 
-**Field Properties**
+```yaml {{ title: 'Example' }}
+embeds:
+  - title: 'Author Example'
+    author: 'Hello there !'
+    author-url: 'https://itsme.to/'
+```
+</CodeGroup>
 
-<Properties>
-  <Property name="name" type="string">
-    The name of the field. Required.
-  </Property>
-  <Property name="value" type="string">
-    The value of the field. Required.
-    - Support multi-line content with the pipe character `|`.
-    - Hide a line if it's start with `show=false`. (Useful with placeholder)
-  </Property>
-  <Property name="inline" type="boolean">
-    If true, the field will be inline.
-  </Property>
-  <Property name='show' type='string'>
-    Hide the field if it's return `false`. (Useful with placeholder)
-  </Property>
-</Properties>
+## url
+The url of the embed. Only works if title is set. Supports random content with a list.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+url: https://itsme.to/
+```
 
-<CodeGroup title="Example">
-```yaml {{ title: 'Simple Embeds' }}
-embeds: 
+```yaml {{ title: 'Example' }}
+embeds:
+  - title: 'Hello there !'
+    url: 'https://itsme.to/'
+```
+</CodeGroup>
+
+## title
+The title of the embed. Supports random content with a list.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+title: Hello there !
+# When using a list, the bot will randomly choose one of the items.
+title: 
+  - Hello there !
+  - Hi, I'm ItsMyBot !
+  - Hello %user_displayname% !
+```
+
+```yaml {{ title: 'Example' }}
+embeds:
   - title: Hello there !
     description: I'm a signle line embed.
     color: "#FF0000"
     timestamp: true
 ```
+</CodeGroup>
 
-```yaml {{ title: 'Complex Embeds' }}
-embeds: 
-  - title: Hello there !
-    description: |
-      I'm a multi-line embed.
-      You need to use the pipe character (|) to create a multi-line embed.
-    color: "#FF0000"
-    timestamp: true
-    image: "https://example.com/image.png"
-    thumbnail: "https://example.com/thumbnail.png"
-    
-  - title: Hi, I'm ItsMyBot !
-    fields:
-      - name: "Field 1"
-        value: "Value 1"
-      - name: "Field 2"
-        value: "Value 2"
-    color: "#00FF00"
-    timestamp: true
-    image: "https://example.com/image2.png"
-    thumbnail: "https://example.com/thumbnail2.png"
+## description
+The description of the embed. Supports random content with a list, multi-line content with the pipe character `|`, and hide a line if it starts with `show=false`. This is useful when using placeholders.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+description: Hello there !
+
+description: |
+  Hello there !
+  You need to use the pipe character (|) to create a multi-line embed.
+  show=%show_message% Hide the line if it's return 'false'.
+
+# When using a list, the bot will randomly choose one of the items.
+description: 
+  - Hello there !
+  - Hi, I'm ItsMyBot !
+  - Hello %user_displayname% !
 ```
 
-```yaml {{ title: 'Advanced Embeds' }}
-embeds: 
-  - title: 
-      - Hello there !
-      - Hi, I'm ItsMyBot !
-      - Hello %user_displayname% !
+```yaml {{ title: 'Example' }}
+embeds:
+  - title: Hello there !
+    description: I'm a signle line embed.
+    timestamp: true
+  - title: This is a second embed
     description: |
       I'm a multi-line embed.
       You need to use the pipe character (|) to create a multi-line embed.
-    color: 
-      - "#FF0000"
-      - "#00FF00"
-      - "#0000FF"
+```
+</CodeGroup>
+
+## color
+The color of the embed. Supports random content with a list. If not set, the bot will use the default color defined in `configs/config.yml`.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+color: "#FF0000"
+```
+
+```yaml {{ title: 'Example' }}
+embeds:
+  - title: Hello there !
+    description: I'm a color embed.
+    color: "#FF0000"
     timestamp: true
+```
+</CodeGroup>
+
+## image
+The image of the embed. Supports random content with a list.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+image: https://example.com/image.png
+```
+
+```yaml {{ title: 'Example' }}
+embeds:
+  - title: Hello there !
+    description: I'm a image embed.
+    image: "https://example.com/image.png"
+```
+</CodeGroup>
+
+## thumbnail
+The thumbnail of the embed. Supports random content with a list.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+thumbnail: https://example.com/thumbnail.png
+```
+
+```yaml {{ title: 'Example' }}
+embeds:
+  - title: Hello there !
+    description: I'm a thumbnail embed.
+    thumbnail: "https://example.com/thumbnail.png"
+```
+</CodeGroup>
+
+## footer
+The footer of the embed. Supports random content with a list.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+footer: Hello there !
+```
+
+```yaml {{ title: 'Example' }}
+embeds:
+  - title: Hello there !
+    description: I'm a footer embed.
+    footer: "Hello there !"
+```
+</CodeGroup>
+
+## footer-icon
+The icon of the footer. Only works if footer is set. Supports random content with a list.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+footer-icon: https://example.com/icon.png
+```
+
+```yaml {{ title: 'Example' }}
+embeds:
+  - title: Hello there !
+    description: I'm a footer embed.
+    footer: "Hello there !"
+    footer-icon: "https://example.com/icon.png"
+```
+</CodeGroup>
+
+## timestamp
+If true, the bot will add a timestamp to the embed.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+timestamp: true
+```
+
+```yaml {{ title: 'Example' }}
+embeds:
+  - title: Hello there !
+    description: I'm a timestamp embed.
+    timestamp: true
+```
+</CodeGroup>
+
+## conditions
+The [conditions](/itsmybot/scripting/conditions/) of the embed. If the conditions are not met, the embed will be hidden.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+conditions:
+  - id: aboveMembers
+    args:
+      amount: 10
+```
+
+```yaml {{ title: 'Example' }}
+embeds:
+  - title: Hello there !
+    description: I'm a condition embed.
+    conditions:
+      - id: aboveMembers
+        args:
+          amount: 10
+```
+</CodeGroup>
+
+## fields
+All the fields of the embed. You can use them to create a list of items or to add more information to the embed. It's support [conditions](/itsmybot/scripting/conditions/), if the conditions is not met, the field will be hidden.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+fields:
+  - name: Hello there !
+    value: I'm a field embed.
+    inline: true # Optional
+    conditions: # Optional 
+      - id: aboveMembers
+        args:
+          amount: 10
+```
+
+```yaml {{ title: 'Example' }}
+embeds:
+  - title: Hello there !
+    description: I'm a field embed.
     fields:
-      - name: "Field 1"
-        value: "Value 1"
+      - name: Hello there !
+        value: I'm a field embed.
         inline: true
-      - name: "Field 2"
-        value: "Value 2"
-        show: '%show_field2%' # Hide the field if it's return 'false'.
-    image: 
-      - "https://example.com/image.png"
-      - "https://example.com/image2.png"
-      - "https://example.com/image3.png"
-    thumbnail: 
-      - "https://example.com/thumbnail.png"
-      - "https://example.com/thumbnail2.png"
-      - "https://example.com/thumbnail3.png"
+      - name: Server is online
+        value: '%mcstatus_example_players% Players'
+        conditions:
+          - id: IsExpressionTrue
+            args:
+              value: '%mcstatus_example_online%'
 ```
 </CodeGroup>
 
 ---
 
-## Components Properties
-Components need to be an array of components, you can find all the properties you can use in the components configuration, every property is optional.
+# components
+Components are a way to add interactivity to your messages. You can use them to create buttons, select menus, and more. If the customId start with `script_` the bot can trigger a script when the component is used.
+Components is a list of 5 rows, each row can contain 1 to 5 components. The bot will automatically create the rows for you.
 
-### Button Properties
-<Properties>
-  <Property name="custom-id" type="string">
-    The custom id of the button.
-    - Support random content with a list.
-  </Property>
-  <Property name="style" type="string">
-    The style of the button.
-    - Support random content with a list.
-    - Can be `primary`, `secondary`, `success`, `danger`, `link`.
-  </Property>
-  <Property name="label" type="string">
-    The label of the button.
-    - Support random content with a list.
-  </Property>
-  <Property name="emoji" type="emoji">
-    The emoji of the button.
-    - Support random content with a list.
-  </Property>
-  <Property name="url" type="url">
-    The url of the button.
-    - Only work if style is `link` or not defined.
-    - Support random content with a list.
-  </Property>
-</Properties>
+```yaml
+components:
+  "1": # Row 1
+    - type: "button"
+      label: "First Button"
+      style: "primary"
+      custom-id: "button1"
+    - type: "button"
+      label: "Second Button"
+      style: "link"
+      url: "https://example.com"
+      emoji: "🔗"
+  "2": # Row 2
+    - type: "select-menu"
+      custom-id: "select1"
+      placeholder: "Select an option"
+      options:
+        - label: "Option 1"
+          value: "option1"
+        - label: "Option 2"
+          value: "option2"
+```
 
-### Select Menu Properties
-<Properties>
-  <Property name="custom-id" type="string">
-    The custom id of the select menu.
-  </Property>
-  <Property name="placeholder" type="string">
-    The style of the button.
-    - Support random content with a list.
-    - Can be `primary`, `secondary`, `success`, `danger`, `link`.
-  </Property>
-  <Property name="min-values" type="integer">
-    Minimun number of values that can be selected, default to 0.
-  </Property>
-  <Property name="max-values" type="integer">
-    Maximum number of values that can be selected, default to 1.
-  </Property>
-  <Property name="options" type="array">
-    All the options of the select menu.
-  </Property>
-</Properties>
+## button
+Add a button to the message. You can use it to create a button that will trigger an action when clicked. Every value except `type` is optional and support random content with a list. `url` and `custom-id` are mutually exclusive, you need to set one of them. If the customId start with `script_` the bot can trigger a script when the button is used. This also suport [conditions](/itsmybot/scripting/conditions/), if the conditions is not met, the button will be hidden.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: "button"
+label: "First Button"
+style: "primary" # Optional, default to "primary". Can be "primary", "secondary", "success", "danger", "link"
+custom-id: "button1"
+url: "https://example.com" # Optional, only works if style is "link" or not defined
+emoji: "🔗" # Optional
+conditions: # Optional
+  - id: aboveMembers
+    args:
+      amount: 10
+```
 
-**Options Properties**
-<Properties>
-  <Property name="label" type = "string">
-    The label of the option. Required.
-  </Property>
-  <Property name = "value" type = "string" >
-    The value of the option. Required.
-  </Property>
-  <Property name = "emoji" type = "emoji">
-    The emoji of the option.
-  </Property>
-  <Property name = "description" type = "string">
-    The description of the option.
-  </Property>
-  <Property name = "default" type = "boolean">
-    If true, the option will be selected by default.
-  </Property>
-</Properties>
-
-<CodeGroup title="Example">
-```yaml {{ title: 'Simple Components' }}
-components: 
+```yaml {{ title: 'Example' }}
+components:
   "1":
     - type: "button"
       label: "First Button"
@@ -310,12 +391,71 @@ components:
       url: "https://example.com"
       emoji: "🔗"
   "2":
+    - type: "button"
+      label: # Every value except type support random content with a list.
+        - "Third Button"
+        - "Fourth Button"
+      style: "success"
+      custom-id: "button2"
+    - type: "button"
+      label: "Fifth Button"
+      custom-id: "button3"
+      conditions:
+        - id: aboveMembers
+          args:
+            amount: 20
+```
+</CodeGroup>
+
+
+## select-menu
+Add a select menu to the message. You can use it to create a select menu that will trigger an action when selected. Every value except `type` & `custom-id` is optional and support random content with a list. Option of the select menu support [conditions](/itsmybot/scripting/conditions/), if the conditions is not met, the option will be hidden. `min-values` and `max-values` are optional and default to 0 and 1 respectively.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: "select-menu"
+custom-id: "select1"
+placeholder: "Select an option" # Optional
+min-values: 0 # Optional, default to 0
+max-values: 1 # Optional, default to 1
+options: # Required
+  - label: "Option 1"
+    value: "option1"
+    conditions: # Optional
+      - id: aboveMembers
+        args:
+          amount: 10
+```
+
+```yaml {{ title: 'Example' }}
+components:
+  "1":
     - type: "select-menu"
       custom-id: "select1"
       placeholder: "Select an option"
+      min-values: 0
+      max-values: 1
       options:
         - label: "Option 1"
           value: "option1"
+        - label: "Option 2"
+          value: "option2"
+        - label: # Every value except type support random content with a list.
+            - "Option 3"
+            - "Option 4"
+          value: "option3"
+  "2":
+    - type: "select-menu"
+      custom-id: "select2"
+      placeholder: "Select an option"
+      min-values: 0
+      max-values: 1
+      options:
+        - label: "Option 1"
+          value: "option1"
+          conditions:
+            - id: bellowMembers
+              args:
+                amount: 4
         - label: "Option 2"
           value: "option2"
 ```
