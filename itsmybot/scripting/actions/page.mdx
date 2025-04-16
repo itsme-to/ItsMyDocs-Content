@@ -107,6 +107,32 @@ Send a private message. You can see the [message configuration](/itsmybot/config
     content: "Hello %user_mention% !"
 ```
 
+## sendRequest
+Send a http request. New placeholders will be added when you trigger an action after this action. With the format `%data_<object>%`. If you want a value that is inside an object, you can add the path with underscore `_`. For example, if you want the value of `user.id`, you can use `%data_user_id%`.
+***Can triggers actions**
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+- id: sendRequest
+  args:
+    value: 'https://api.example.com' # URL
+    method: 'POST' # Method, optional. Default is GET
+    headers: # Optional
+      Content-Type: 'application/json' # Headers
+    body: # Optional
+      key: 'value' # Body
+```
+
+```yaml {{ title: 'Example' }}
+- id: sendRequest
+  args:
+    value: 'https://api.mcstatus.io/v2/status/java/mc.hypixel.net:25565' # URL
+    actions:
+      - id: sendMessage
+        args:
+          content: "Players %data_players_online%/%data_players_max% | Version %data_version_name_clean%"
+```
+</CodeGroup>
+
 ## startThread
 Start a thread. If the value is a array, a random value will be selected.
 ***Can triggers actions**
