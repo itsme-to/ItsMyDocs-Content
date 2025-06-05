@@ -1,0 +1,27 @@
+export const description = 'Step-by-step guide to install and run ItsMyBot on your own VPS.'
+
+# Install ItsMyBot on a VPS
+If you prefer to use your own server, this guide will help you set up ItsMyBot on a Virtual Private Server (VPS). This method is not recommended for beginners, as it requires some technical knowledge to manage the server and troubleshoot issues. Using a Pterodactyl panel or a hosting provider is generally easier and more user-friendly.
+
+## Requirements
+- A VPS running a Linux distribution (Ubuntu, Debian, etc.).
+- SSH access to the server and basic Linux knowledge.
+- ItsMyBot is optimized for efficiency, using less than 200MB of RAM under normal conditions, but it is recommended to allocate 500MB to ensure smooth operation.
+
+## Installation steps
+1. Connect to your VPS via SSH.
+2. To install Node.js, follow the instructions on the [Node.js website](https://nodejs.org/en/download). Make sure to install a version that is compatible with ItsMyBot (version 20.x or higher is recommended).
+3. Download the latest version of ItsMyBot from the [website](https://builtbybit.com/resources/24369/).
+4. Extract the zip file into a folder on your server.
+5. Open a terminal in the folder where you extracted ItsMyBot.
+6. Install the dependencies with the command `npm install`.
+7. Start the bot for the first time with the command `npm run start`. This will generate the necessary configuration files.
+8. You can then proceed to [configure the bot](/itsmybot/installation#create-the-bot-on-discord) on Discord.
+9. After configuring the bot, you can follow the steps below to run the bot continuously.
+
+## How to run the bot 
+To run the bot, it's recommended to use a process manager like PM2 or forever. This will ensure that the bot runs continuously and restarts automatically if it crashes.
+1. Install PM2 globally with the command `npm install -g pm2`.
+2. Start the bot with PM2 using the command `pm2 start npm --name itsmybot -- run start`.
+3. To ensure that PM2 restarts the bot on server reboot, run `pm2 startup` and follow the instructions provided.
+4. You can check the status of the bot with `pm2 status` and view the logs with `pm2 logs itsmybot`.

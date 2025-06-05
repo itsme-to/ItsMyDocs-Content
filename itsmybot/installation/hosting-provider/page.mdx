@@ -1,0 +1,28 @@
+export const description = 'Find all the information on how to install and use the ItsMyBot with a hosting provider.'
+
+# Quick Start with a Hosting Provider
+This method is the easiest and is recommended if you don’t want to manage a server yourself. 
+
+### What is a hosting provider?
+A hosting provider is a company that offers server space and resources for you to run your applications, such as ItsMyBot. They handle the infrastructure, allowing you to focus on using the bot without worrying about server management.
+
+## Requirements
+- An active hosting plan from a bot hosting provider that support Node.js 20.x or higher.
+- Most providers offer a preconfigured Pterodactyl or Pelican panel. It's recommended to use one of these panels for easier management.
+- ItsMyBot is optimized for efficiency, using less than 200MB of RAM under normal conditions, but it is recommended to allocate 500MB to ensure smooth operation.
+
+## Installation steps 
+1. Connect to your hosting provider's panel and choose the server where you want to install ItsMyBot.
+2. Upload the ItsMyBot files to your server using the file manager or an SFTP client.
+3. You need to set the `Main file` to `build/index.js` in the startup settings of your panel. If it's not possible to set the main file, contact your hosting provider for assistance.
+4. To generate the configuration files, you need to run the bot for the first time. You can do this by starting the bot from the panel.
+5. Once that is done, you can proceed to creating the bot on Discord following this guide.
+
+<div className="not-prose">
+  <Button
+    href="/itsmybot/installation#create-the-bot-on-discord"
+    variant="text"
+    arrow="right"
+    children="Create the bot on Discord"
+  />
+</div>

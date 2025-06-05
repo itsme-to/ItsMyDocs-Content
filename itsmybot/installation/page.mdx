@@ -1,0 +1,42 @@
+
+import { Hosting } from '@/components/Hosting'
+
+export const description =
+  'Everything you need to know to install, configure, and launch ItsMyBot — whether hosted, self-managed, or on your own panel.'
+
+export const sections = [
+  { title: 'Installation', id: 'installation' },
+  { title: 'Create the bot', id: 'create-the-bot-on-discord' },
+  { title: 'Configuration', id: 'configuration' }
+]
+
+# Installation Guide
+This page will help you install, configure, and launch ItsMyBot based on your preferred hosting method.
+
+<Hosting />
+
+## Create the bot on Discord
+When the installation is complete and after running the bot once to generate the config files, you’ll need to create the bot application on Discord.
+1. Go to the [Discord developers](https://discord.com/developers/applications) site.
+2. Create a new application.
+3. Go to the **Bot** tab.
+4. Disable the **Public Bot** option.
+5. Enable the **Presence Intent**, **Server Members Intent** and **Message Content Intent** options.
+6. Go to the **OAuth2** tab.
+7. In the **OAuth2 URL Generator** section, check the **bot** and **applications.commands** scopes.
+8. In the **Bot Permissions** section, check the **Administrator** permission.
+9. Copy the generated link at the bottom of the page and paste it into your browser and add the bot to your server.
+
+## Configuration the bot
+1. Return to the [Discord developers](https://discord.com/developers/applications) site.
+2. Choose your application and go to the **Bot** tab.
+3. Reset the bot token to get a new token.
+4. Copy the token.
+5. Open the `/configs/config.yml` file.
+6. Paste the token into the `token` field.
+7. Add your primary guild ID to the `primary-guild` field. The primary guild is the guild where the bot will be primarily used. To find your guild ID, you can right-click on the server name in Discord and select **Copy Server ID**. *Make sure Developer Mode is enabled in your Discord settings*.
+8. Save the file.
+9. If you have addons for the bot, you can add them to the `/build/addons/` folder. The folder need to be unzipped, each addon should be in its own folder.
+10. Launch the bot and envoy the features of ItsMyBot!
+
+To understand how the bot works, you can refer to the other pages of the documentation.

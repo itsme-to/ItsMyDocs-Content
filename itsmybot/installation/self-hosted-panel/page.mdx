@@ -1,0 +1,37 @@
+export const description = 'Guide to install and run ItsMyBot using your own Pterodactyl panel.'
+
+# Self-Hosted Panel
+Host and manage ItsMyBot using your own instance of the Pterodactyl or Pelican panel.
+
+### Why use a self-hosted panel?
+Running your own panel like Pterodactyl gives you an intuitive interface for managing bots and apps while retaining server control.
+
+## Requirements
+- A server with Pterodactyl installed.
+- Properly configured Pterodactyl (Wings, SSL, database, etc.).
+- ItsMyBot is optimized for efficiency, using less than 200MB of RAM under normal conditions, but it is recommended to allocate 500MB to ensure smooth operation.
+
+## Installation Steps
+1. Before creating a server, you need to have a Node.js egg installed on your panel. If it's not already installed, follow the steps [below](#install-the-node-js-egg) to install it.
+2. Go to your Admin panel of Pterodactyl, and navigate to **Servers**.
+3. Click on **Create Server** and fill in the required fields:
+   - **Name**: Choose a name for your bot.
+   - **Server Owner**: Select the user who will own the server, usually yourself. You can type the email address of the user to find them.
+   - **Memory**: Allocate at least 500MB of RAM for the bot to ensure smooth operation.
+   - **Disk Space**: Allocate at least 4GB of disk space for the bot and its dependencies.
+   - **Nest**: Select the nest you created earlier (e.g., `Generic`).
+   - **Egg**: Select the Node.js egg you imported.
+   - **Docker Image**: Ensure it is set to a version higher than Node.js 20.x
+   - **Main File**: Ensure it is set to `build/index.js`.
+4. Click on **Create Server** to create the server.
+5. You can now go back to the user panel of Pterodactyl, select the server you just created and follow the [Hosting Provider](/installation/hosting-provider) guide to run the bot.
+
+## Install the Node.js Egg
+1. Download the Node.js egg from the [Pterodactyl Egg Repository](https://raw.githubusercontent.com/pelican-eggs/generic/refs/heads/main/nodejs/egg-pterodactyl-node-js-generic.json). You just need to righ-click on the page and select **Save as** to save the file.
+2. Go to your Admin panel of Pterodactyl.
+3. Navigate to **Nests** and click on **Create New**.
+4. Put the name of the nest, for example `Generic`.
+5. Click on **Save** and go back to the **Nests** page.
+6. Click on the **Import Egg** button, select the file you downloaded, associate it with the nest you just created, and click on **Import**.
+
+
