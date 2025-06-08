@@ -1,0 +1,225 @@
+export const description = 'Create custom commands to extend the functionality of ItsMyBot.';
+
+# Create Custom Commands
+With ItsMyBot and the [scripting](/itsmybot/scripting/) system, you can create custom commands to extend the bot's functionalities. These commands can be used to perform various actions, such as sending messages, managing roles, and more.
+
+Each custom command need to be created in the custom-commands folder in the bot's directory. It's support subfolders, so you can organize your commands as you want. Each command is a .yml file that contains the command's configuration. You can disable a command by adding a underscore at the beginning of the file name, for example: `_my-command.yml`.
+
+## Command Structure
+A custom command is a YAML file that contains the following structure:
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+name: #string, the name of the command, used to call it in Discord.
+description: #string, the description of the command, used to display it in the help command.
+options: #list, the list of options for the command.
+actions: #list, the list of actions to perform when the command is executed.
+```
+```yaml {{ title: 'Example' }}
+name: give-role
+description: "Give a role to a user."
+options:
+  - name: user # Option name
+    type: "user" # Option type
+    description: "The user to give the role to"
+    required: true # Option required
+  - name: role
+    type: "role"
+    description: "Select a role to add to the user"
+    required: true
+actions:
+  - actions:
+    - id: addRole
+      args:
+        value: "%option_role_id%"
+    - id: reply
+      args:
+        delay: 3
+        content: "Role %option_role_mention% added to %option_user_mention%"
+    mutators:
+      member: "%option_user_id%" # Transform the main member to the user selected in the option.
+```
+</CodeGroup>
+
+---
+
+## Options types
+Options are the parameters that can be passed to a command when it is executed. They can be used to customize the behavior of the command. Each option has a type, a name, a description, and can have additional properties depending on its type.
+
+### `string` 
+A string option is a text input that can be used to provide a value for the command.
+- Add the placeholder `%option_<option-name>%` to use the value of the option in the actions.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: string
+description: #string, the description of the option.
+required: #boolean, if the option is required or not.
+choices: #list, the list of choices for the option. Each choice is a dictionary with the following keys:
+  - name: #string, the name of the choice.
+    value: #string, the value of the choice.
+max-length: #integer, the maximum length of the option value. Only used for `string` type.
+min-length: #integer, the minimum length of the option value. Only used for `string` type.
+```
+```yaml {{ title: 'Example' }}
+name: my-command
+description: This is a custom command.
+options:
+  - name: option1
+    description: This is the first option.
+    type: string
+    required: true
+    choices:
+      - name: choice1
+        value: value1
+      - name: choice2
+        value: value2
+  - name: option2
+    description: This is the second option.
+    type: string
+    required: false
+    max-length: 100
+    min-length: 1
+```
+</CodeGroup>
+
+### `integer`/`number`
+An integer option is a numeric input that can be used to provide a value for the command.
+- Add the placeholder `%option_<option-name>%` to use the value of the option in the actions.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: integer # or number
+description: #string, the description of the option. 
+required: #boolean, if the option is required or not.
+min-value: #integer, the minimum value of the option. Only used for `integer` type.
+max-value: #integer, the maximum value of the option. Only used for `integer` type.
+choices: #list, the list of choices for the option. Each choice is a dictionary with the following keys:
+  - name: #string, the name of the choice.
+    value: #integer/number, the value of the choice.
+```
+```
+yaml {{ title: 'Example' }}
+name: my-command
+description: This is a custom command.
+options: 
+  - name: option1
+    description: This is the first option.
+    type: integer # or number
+    required: true
+    choices:
+      - name: choice1
+        value: 1
+      - name: choice2
+        value: 2
+    min-value: 0
+    max-value: 100
+  - name: option2
+    description: This is the second option.
+    type: integer # or number
+    required: false
+```
+</CodeGroup>
+
+### `boolean`
+A boolean option is a checkbox that can be used to provide a value for the command.
+- Add the placeholder `%option_<option-name>%` to use the value of the option in the actions.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: boolean
+description: #string, the description of the option.
+required: #boolean, if the option is required or not.
+```
+```yaml {{ title: 'Example' }}
+name: my-command
+description: This is a custom command.
+options:
+  - name: option1
+    description: This is the first option.
+    type: boolean
+    required: true
+```
+</CodeGroup>
+
+### `user`
+A user option is a user mention that can be used to provide a value for the command.
+- Add the [user placeholders](/itsmybot/configuration/placeholders#user) with the prefix `%option_<option-name>_` in the actions. Example: `%option_user_mention%` to get the mention of the user selected.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: user
+description: #string, the description of the option.
+required: #boolean, if the option is required or not.
+```
+```yaml {{ title: 'Example' }}
+name: my-command
+description: This is a custom command.
+options:
+  - name: option1
+    description: This is the first option.
+    type: user
+    required: true
+```
+</CodeGroup>
+
+### `channel`
+A channel option is a channel mention that can be used to provide a value for the command.
+- Add the [channel placeholders](/itsmybot/configuration/placeholders#channel) with the prefix `%option_<option-name>_` in the actions. Example: `%option_option1_mention%` to get the mention of the channel selected.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: channel
+description: #string, the description of the option.
+required: #boolean, if the option is required or not.
+channel-type: #string, the type of the channel. Can be GuildText, GuildVoice, GuildCategory, GuildAnnouncement, AnnouncementThread, PublicThread, PrivateThread, GuildStageVoice, GuildForum, GuildMedia, GuildDirectory
+```
+```yaml {{ title: 'Example' }}
+name: my-command
+description: This is a custom command.
+options:
+  - name: option1
+    description: This is the first option.
+    type: channel
+    required: true
+    channel-type: GuildText 
+```
+</CodeGroup>
+
+### `role`
+A role option is a role mention that can be used to provide a value for the command.
+- Add the [role placeholders](/itsmybot/configuration/placeholders#role) with the prefix `%option_<option-name>_` in the actions. Example: `%option_option1_mention%` to get the mention of the role selected.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: role
+description: #string, the description of the option.
+required: #boolean, if the option is required or not.
+```
+```yaml {{ title: 'Example' }}
+name: my-command
+description: This is a custom command.
+options:
+  - name: option1
+    description: This is the first option.
+    type: role
+    required: true
+```
+</CodeGroup>
+### `mentionable`
+A mentionable option is a mentionable entity (user or role) that can be used to provide a value for the command.
+- Add the [user placeholders](/itsmybot/configuration/placeholders#mentionable) or [role placeholders](/itsmybot/configuration/placeholders#role) with the prefix `%option_<option-name>_` in the actions. Example: `%option_option1_mention%` to get the mention of the selected mentionable.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: mentionable
+description: #string, the description of the option.
+required: #boolean, if the option is required or not.
+```
+```yaml {{ title: 'Example' }}
+name: my-command
+description: This is a custom command.
+options:
+  - name: option1
+    description: This is the first option.
+    type: mentionable
+    required: true
+```
+</CodeGroup>
+
+## Actions
+Actions are the core of the custom commands. They define what the command will do when it is executed. You can use any action available in the [actions](/itsmybot/scripting/actions) section.
