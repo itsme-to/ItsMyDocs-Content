@@ -1,0 +1,38 @@
+# Commands
+You can use the commands to interact with the bot and perform various actions. You can find here all the default commands available in the bot. You can also create your own commands using the [custom commands](/itsmybot/commands/custom-command) system.
+
+<Properties>
+  <Property name="addons list" >
+    Show the list of addons.
+  </Property>
+  <Property name="addons enable" type="<addon>">
+    Enable the specified addon. Require a restart to take effect.
+  </Property>
+  <Property name="addons disable" type="<addon>">
+    Disable the specified addon. Require a restart to take effect.
+  </Property>
+  <Property name="leaderboard messages">
+    Show the leaderboard messages.
+  </Property>
+  <Property name="meta add" type="<key> <value> <mode> [scope]">
+    Add a value to the specified key in the [meta](/itsmybot/scripting/meta) data. The mode can be `global`, `user` or `channel`. The scope is optional and can be used to specify a specific user or channel. Only work with `number` type.
+  </Property>
+  <Property name="meta remove" type="<key> <mode> <type> [scope]">
+    Remove a value from the specified key in the [meta](/itsmybot/scripting/meta) data. The mode can be `global`, `user` or `channel`. The type can be `number`, `string`, `boolean`. The scope is optional and can be used to specify a specific user or channel.
+  </Property>
+  <Property name="meta set" type="<key> <value> <mode> <type> [scope]">
+    Set a value to the specified key in the [meta](/itsmybot/scripting/meta) data. The mode can be `global`, `user` or `channel`. The type can be `number`, `string`, `boolean`. The scope is optional and can be used to specify a specific user or channel.
+  </Property>
+  <Property name="meta subtract" type="<key> <value> <mode> [scope]">
+    Subtract a value from the specified key in the [meta](/itsmybot/scripting/meta) data. The mode can be `global`, `user` or `channel`. The scope is optional and can be used to specify a specific user or channel. Only work with `number` type.
+  </Property>
+  <Property name="meta switch" type="<key> <value> <mode> [scope]">
+    Switch a value in the specified key in the [meta](/itsmybot/scripting/meta) data. The mode can be `global`, `user` or `channel`. The scope is optional and can be used to specify a specific user or channel. Only work with `boolean` type.
+  </Property>
+  <Property name="parse" type="<text>">
+    Parse a text and replace all the placehalders with their values. Useful to test the placeholders.
+  </Property>
+  <Property name="reload">
+    Reload the bot configuration. This will reload all the addons and the configuration files.
+  </Property>
+</Properties>
