@@ -1,0 +1,93 @@
+export const description = 'Guide to save and manage custom data using Meta in ItsMyBot.';
+export const sections = [];
+
+# Saving Data with Meta
+Meta is a new system in ItsMyBot that allows you to save custom data for later use. This makes the scripting system even more powerful. For example, you can easily create a counting channel with it.
+
+A meta consists of several parts:
+<Properties>
+  <Property name="key" type="string">
+    The key is the name of the meta. It can be anything you want, but it should be unique to avoid conflicts with other metas.
+  </Property>
+  <Property name="type" type="string">
+    The type of the meta. Can be `number`, `string` or `boolean`. This is used to determine how the data will be stored and how it can be used.
+  </Property>
+  <Property name="mode" type="string">
+    The mode of the meta. Can be `global`, `user` or `channel`. This is used to determine where the data will be stored. The global mode is used to store data that is shared across all users and channels. The user mode is used to store data that is specific to a user. The channel mode is used to store data that is specific to a channel.
+  </Property>
+  <Property name="scope" type="string">
+    The scope of the meta. It is the ID of the user or channel used to retrieve the stored information. This is only used for `user` and `channel` modes.
+  </Property>
+  <Property name="value" type="any">
+    The value is the data that you want to store. It can be anything you want.
+  </Property>
+</Properties>
+
+--- 
+
+## How to use Meta
+You can use meta in your scripts, custom commands, embeds, and more. 
+- You can find the meta actions in the [actions](/itsmybot/scripting/actions) section.
+- Meta also have their own placeholders, that you can found in the [placeholders](/itsmybot/configuration/placeholders) section.
+- You can also use commands to interact with meta data. You can find the commands in the [commands](/itsmybot/commands) section.
+
+### Examples
+<CodeGroup>
+```yaml {{ title: 'Counting Channel Script' }}
+actions: # This script will create a counting channel.
+  - triggers: messageCreate 
+    conditions:
+      - id: inChannel
+        args:
+          value: 'counting-channel' # The channel where the counting will take place.
+      - id: '!isBot' # The message must not be sent by a bot.
+      - expression: '%content% == %meta_count_channel_number_0%+1' # The message must be the next number in the sequence.
+        not-met-actions: # If the message is not the next number in the sequence, send a reply.
+          - id: reply
+            args:
+              components:
+                - type: text-display
+                  content: "You need to send the next number in the sequence: %math_{meta_counting_channel_number_0}+1%" 
+              actions:
+                - id: deleteMessage # Delete the reply after 10 seconds.
+                  args:
+                    delay: 10
+          - id: deleteMessage # Delete the original message.
+    actions:
+      - id: metaAdd # Add the number to the meta data.
+        args:
+          key: 'counting'
+          value: '1' # The value to add to the meta data.
+          mode: channel # The mode is channel, so the data will be stored in the channel meta.
+```
+```yaml {{ title: 'Level System' }}
+actions: # This script will create a level system.
+  - triggers: messageCreate
+    conditions:
+      - id: '!isBot' # The message must not be sent by a bot.
+    actions:
+      - id: metaAdd # Add the message length to the user's meta data.
+        args:
+          key: 'experience' # The key is the experience of the user.
+          value: '1' # The length of the message.
+          mode: user # The mode is user, so the data will be stored in the user's meta.
+      - conditions:
+          - id: IsExpressionTrue # Check if the user has enough experience to level up.
+            args:
+              expression: '%meta_experience_user_number_0% >= %meta_level_user_number_1%*100' # The user needs 100 experience for each level.
+        actions:
+          - id: metaAdd # Add 1 to the user's level.
+            args:
+              key: 'level'
+              value: '1'
+              mode: user
+          - id: metaRemove # Remove the experience from the user's meta data.
+            args:
+              key: 'experience'
+              type: number
+              mode: user
+          - id: reply # Reply to the user with their new level.
+            args:
+              content: "Congratulations %user_mention%! You leveled up to level %meta_level_user_number_0%!"
+```
+</CodeGroup>
