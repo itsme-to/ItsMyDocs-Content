@@ -1,299 +1,84 @@
 export const description =
-'All the information on how to configure messages, embeds, and components in the ItsMyBot.'
+'All the information on how to configure messages and components in the ItsMyBot.'
 
 # How to configure Message
-All messages from ItsMyBot can be configured with the following options, offering you even more possibilities. The messages support [placehalders](/itsmybot/configuration/placeholders/) in every property. You can use them to create dynamic messages that change based on the context.
+In this guide, you will learn how to configure a message and everything you can do with it. Discord recently released a new format for bots called **ComponentV2**. This guide will explain how to create messages using this format. If you want to use the old format, you can refer to the [Old Format Message](/itsmybot/configuration/message-old) page. 
 
-```yaml {{ title: 'Example' }}
-content: "Hello %user_mention% !"
-embeds:
-  - title: "%mcstatus_example_players% Players"
-    description: "Server is %mcstatus_example_status% !"
-    color: "#ff0000"
-components:
-  "1":
-    - type: "button"
-      label: "First Button"
-      style: "primary"
-      custom-id: "button1"
-    - type: "button"
-      label: "Second Button"
-      style: "link"
-      url: "https://example.com"
-      emoji: "🔗"
-```
+Messages support [placeholders](/itsmybot/configuration/placeholders/), you can put them in any part of the message, and they will be replaced with the corresponding value when the message is sent.
+
+To make things easier for you, I have implemented the format on discord.builders, allowing you to create your messages with a convenient interface and directly generate the configuration!
+
+<div className="not-prose mb-16 mt-6 flex flex-wrap gap-3">
+  <Button href="https://discord.builders/itsmybot-code-generator" arrow="right" children="Generate a message configuration" target="_blank"/>
+</div>
 
 ---
 
-# Message Properties
-All the properties you can use in the message configuration. Every property is optional.
+# Message Configuration
+This is the main part of the message configuration. You set everything you want to display in the message here. The message is composed of components, which are the building blocks of the message. Each component has a type and can have various options.
 
-## content
-The content of the message. Supports multi-line content with the pipe character `|`, random content with a list, and hide a line if it starts with `show=false`. This is useful when using placeholders.
-```yaml
-content: |
-  Hello there !
-  You need to use the pipe character (|) to create a multi-line message.
-  show=%show_message% Hide the line if it's return 'false'.
-
-# When using a list, the bot will randomly choose one of the items.
-content:
-  - Hello there !
-  - Hi, I'm ItsMyBot !
-  - Hello %user_displayname% !
-```
-
-## ephemeral
-If true, the bot will send the message as an ephemeral message. This only works for messages from an interaction.
-```yaml
-ephemeral: true
-```
-
-## disable-mentions
-If true, the bot will disable all mentions in the message.
-```yaml
-disable-mentions: true
-```
-
---- 
-
-# embeds
-Embeds are a way to send rich messages with images, titles, and descriptions. You can use them to create beautiful messages with a lot of information.
-You can find all the properties you can use in the embeds configuration, every property is optional.
-
-```yaml
-embeds:
-  - title: Hello there !
-    description: I'm a signle line embed.
-    color: "#FF0000"
-    timestamp: true
-  - title: This is a second embed
-    description: I'm a second embed.
-```
-
-Every value bellow is to be used in the `embeds` property.
-
-## author
-The author of the embed. Supports random content with a list.
-
+- Support the following components: [`text-display`](#text-display), [`container`](#container), [`section`](#section), [`action-row`](#action-row), [`media-gallery`](#media-gallery), [`separator`](#separator), [`file`](#file) & [`repeat`](#repeat).
 <CodeGroup>
 ```yaml {{ title: 'Usage' }}
-author: Hello there !
-# When using a list, the bot will randomly choose one of the items.
-author: 
-  - Hello there !
-  - Hi, I'm ItsMyBot !
-  - Hello %user_displayname% !
+ephemeral: #boolean, optional, if true the bot will send the message as an ephemeral message. Only works for messages from an interaction.
+disable-mention: #boolean, optional, if true the bot will not mention rolses or users in the message.
+components: # list of components, the components of the message
 ```
 
 ```yaml {{ title: 'Example' }}
-embeds:
-  - title: 'Author Example'
-    author: 'Hello there !'
+ephemeral: true # Optional, if true the bot will send the message as an ephemeral message. Only works for messages from an interaction.
+components: # The components of the message. With the new format, all the content of the message is in the components.
+  - type: "text-display" # A text display component, it will display the content as a text.
+    content: "Hello there !"
+  - type: "container" # A container component. It's a bit like an embed, but with more flexibility.
+    components:
+      - type: 'section' # A section component, it's a text display list with an accessory. 
+        components:
+          - type: 'text-display'
+            content: "This is a section with a text display."
+          - type: 'text-display'
+            content: "You can add multiple components in a section."
+        accessory: # The accessory of the section, it can be a button or an image.
+          type: 'button'
+          label: 'Click me !'
+          style: 'url'
+          url: 'https://itsme.to/discord'
+      - type: 'separator' # A separator component, it will add a separator between the components.
+      - type: 'action-row' # An action row component, it's used to have a row of components. Buttons or one select menu.
+        components:
+          - type: 'button'
+            label: 'First Button'
+            style: 'primary'
+            custom-id: 'button1'
+          - type: 'button'
+            label: 'Second Button'
+            style: 'secondary'
+            custom-id: 'button2'
 ```
 </CodeGroup>
 
-## author-icon
-The icon of the author. Only works if author is set. Supports random content with a list.
+---
+
+# Components
+As explained above, with Discord’s new format, all the content is now done through components. Below, you will find a list of all the possible components you can include in your message. There are no components that are required in a message.
+
+### Component Conditions
+Each component supports conditions, these are exactly the same conditions you can find in scripts. They allow you to display a component only in certain cases, so your message can adapt to the context.
+You can find the list of available [conditions here](/itsmybot/scripting/conditions/). The format is as follows:
 <CodeGroup>
 ```yaml {{ title: 'Usage' }}
-author-icon: https://example.com/icon.png
+components:
+  - type: <component-type> # The type of the component
+    conditions: # Optional, the conditions of the component
+      - id: <condition-id> # The id of the condition
+        args: # The arguments of the condition
+          <arg-name>: <arg-value> # The arguments of the condition
 ```
 
 ```yaml {{ title: 'Example' }}
-embeds:
-  - title: 'Author Example'
-    author: 'Hello there !'
-    author-icon: 'https://example.com/icon.png'
-```
-</CodeGroup>
-
-## author-url
-The url of the author. Only works if author is set. Supports random content with a list.
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-author-url: https://itsme.to/
-```
-
-```yaml {{ title: 'Example' }}
-embeds:
-  - title: 'Author Example'
-    author: 'Hello there !'
-    author-url: 'https://itsme.to/'
-```
-</CodeGroup>
-
-## url
-The url of the embed. Only works if title is set. Supports random content with a list.
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-url: https://itsme.to/
-```
-
-```yaml {{ title: 'Example' }}
-embeds:
-  - title: 'Hello there !'
-    url: 'https://itsme.to/'
-```
-</CodeGroup>
-
-## title
-The title of the embed. Supports random content with a list.
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-title: Hello there !
-# When using a list, the bot will randomly choose one of the items.
-title: 
-  - Hello there !
-  - Hi, I'm ItsMyBot !
-  - Hello %user_displayname% !
-```
-
-```yaml {{ title: 'Example' }}
-embeds:
-  - title: Hello there !
-    description: I'm a signle line embed.
-    color: "#FF0000"
-    timestamp: true
-```
-</CodeGroup>
-
-## description
-The description of the embed. Supports random content with a list, multi-line content with the pipe character `|`, and hide a line if it starts with `show=false`. This is useful when using placeholders.
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-description: Hello there !
-
-description: |
-  Hello there !
-  You need to use the pipe character (|) to create a multi-line embed.
-  show=%show_message% Hide the line if it's return 'false'.
-
-# When using a list, the bot will randomly choose one of the items.
-description: 
-  - Hello there !
-  - Hi, I'm ItsMyBot !
-  - Hello %user_displayname% !
-```
-
-```yaml {{ title: 'Example' }}
-embeds:
-  - title: Hello there !
-    description: I'm a signle line embed.
-    timestamp: true
-  - title: This is a second embed
-    description: |
-      I'm a multi-line embed.
-      You need to use the pipe character (|) to create a multi-line embed.
-```
-</CodeGroup>
-
-## color
-The color of the embed. Supports random content with a list. If not set, the bot will use the default color defined in `configs/config.yml`.
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-color: "#FF0000"
-```
-
-```yaml {{ title: 'Example' }}
-embeds:
-  - title: Hello there !
-    description: I'm a color embed.
-    color: "#FF0000"
-    timestamp: true
-```
-</CodeGroup>
-
-## image
-The image of the embed. Supports random content with a list.
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-image: https://example.com/image.png
-```
-
-```yaml {{ title: 'Example' }}
-embeds:
-  - title: Hello there !
-    description: I'm a image embed.
-    image: "https://example.com/image.png"
-```
-</CodeGroup>
-
-## thumbnail
-The thumbnail of the embed. Supports random content with a list.
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-thumbnail: https://example.com/thumbnail.png
-```
-
-```yaml {{ title: 'Example' }}
-embeds:
-  - title: Hello there !
-    description: I'm a thumbnail embed.
-    thumbnail: "https://example.com/thumbnail.png"
-```
-</CodeGroup>
-
-## footer
-The footer of the embed. Supports random content with a list.
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-footer: Hello there !
-```
-
-```yaml {{ title: 'Example' }}
-embeds:
-  - title: Hello there !
-    description: I'm a footer embed.
-    footer: "Hello there !"
-```
-</CodeGroup>
-
-## footer-icon
-The icon of the footer. Only works if footer is set. Supports random content with a list.
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-footer-icon: https://example.com/icon.png
-```
-
-```yaml {{ title: 'Example' }}
-embeds:
-  - title: Hello there !
-    description: I'm a footer embed.
-    footer: "Hello there !"
-    footer-icon: "https://example.com/icon.png"
-```
-</CodeGroup>
-
-## timestamp
-If true, the bot will add a timestamp to the embed.
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-timestamp: true
-```
-
-```yaml {{ title: 'Example' }}
-embeds:
-  - title: Hello there !
-    description: I'm a timestamp embed.
-    timestamp: true
-```
-</CodeGroup>
-
-## conditions
-The [conditions](/itsmybot/scripting/conditions/) of the embed. If the conditions are not met, the embed will be hidden.
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-conditions:
-  - id: aboveMembers
-    args:
-      amount: 10
-```
-
-```yaml {{ title: 'Example' }}
-embeds:
-  - title: Hello there !
-    description: I'm a condition embed.
+components:
+  - type: "text-display"
+    content: "Hello there !"
     conditions:
       - id: aboveMembers
         args:
@@ -301,162 +86,323 @@ embeds:
 ```
 </CodeGroup>
 
-## fields
-All the fields of the embed. You can use them to create a list of items or to add more information to the embed. It's support [conditions](/itsmybot/scripting/conditions/), if the conditions is not met, the field will be hidden.
-
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-fields:
-  - name: Hello there !
-    value: I'm a field embed.
-    inline: true # Optional
-    conditions: # Optional 
-      - id: aboveMembers
-        args:
-          amount: 10
-```
-
-```yaml {{ title: 'Example' }}
-embeds:
-  - title: Hello there !
-    description: I'm a field embed.
-    fields:
-      - name: Hello there !
-        value: I'm a field embed.
-        inline: true
-      - name: Server is online
-        value: '%mcstatus_example_players% Players'
-        conditions:
-          - id: IsExpressionTrue
-            args:
-              value: '%mcstatus_example_online%'
-```
-</CodeGroup>
-
 ---
 
-# components
-Components are a way to add interactivity to your messages. You can use them to create buttons, select menus, and more. If the customId start with `script_` the bot can trigger a script when the component is used.
-Components is a list of 5 rows, each row can contain 1 to 5 components. The bot will automatically create the rows for you.
+## `text-display`
+Text display are the default components to use when you want to display text. They are compatible with Discord’s markdown format, so you can create titles by adding # at the beginning of the line, etc.
 
-```yaml
-components:
-  "1": # Row 1
-    - type: "button"
-      label: "First Button"
-      style: "primary"
-      custom-id: "button1"
-    - type: "button"
-      label: "Second Button"
-      style: "link"
-      url: "https://example.com"
-      emoji: "🔗"
-  "2": # Row 2
-    - type: "select-menu"
-      custom-id: "select1"
-      placeholder: "Select an option"
-      options:
-        - label: "Option 1"
-          value: "option1"
-        - label: "Option 2"
-          value: "option2"
-```
-
-## button
-Add a button to the message. You can use it to create a button that will trigger an action when clicked. Every value except `type` is optional and support random content with a list. `url` and `custom-id` are mutually exclusive, you need to set one of them. If the customId start with `script_` the bot can trigger a script when the button is used. This also suport [conditions](/itsmybot/scripting/conditions/), if the conditions is not met, the button will be hidden.
+The content option can be a list of strings, ItsMyBot will randomly select one of the results. This means each message will be unique!
 <CodeGroup>
 ```yaml {{ title: 'Usage' }}
-type: "button"
-label: "First Button"
-style: "primary" # Optional, default to "primary". Can be "primary", "secondary", "success", "danger", "link"
-custom-id: "button1"
-url: "https://example.com" # Optional, only works if style is "link" or not defined
-emoji: "🔗" # Optional
-conditions: # Optional
-  - id: aboveMembers
-    args:
-      amount: 10
+type: text-display
+content: #string | list
 ```
 
 ```yaml {{ title: 'Example' }}
 components:
-  "1":
-    - type: "button"
-      label: "First Button"
-      style: "primary"
-      custom-id: "button1"
-    - type: "button"
-      label: "Second Button"
-      style: "link"
-      url: "https://example.com"
-      emoji: "🔗"
-  "2":
-    - type: "button"
-      label: # Every value except type support random content with a list.
-        - "Third Button"
-        - "Fourth Button"
-      style: "success"
-      custom-id: "button2"
-    - type: "button"
-      label: "Fifth Button"
-      custom-id: "button3"
-      conditions:
-        - id: aboveMembers
-          args:
-            amount: 20
+  - type: text-display
+    content: "Hello there !" # A simple text display
+  - type: text-display
+    content: | # A multiline text display
+      Multiple lines of text
+      are supported, just like in Discord.
+  - type: text-display
+    content: # A list of strings, one will be randomly selected
+      - "Hello there !"
+      - "Hi !"
+      - "Greetings !"
+  - type: text-display
+    content: | # A multiline text display with markdown formatting
+      # This is a title
+      ## This is a subtitle
+      This is a text with **bold** and *italic* formatting.
 ```
 </CodeGroup>
 
+## `container`
+A container is a component that can contain other components. It is used to group components together and display them in a more organized way.
 
-## select-menu
-Add a select menu to the message. You can use it to create a select menu that will trigger an action when selected. Every value except `type` & `custom-id` is optional and support random content with a list. Option of the select menu support [conditions](/itsmybot/scripting/conditions/), if the conditions is not met, the option will be hidden. `min-values` and `max-values` are optional and default to 0 and 1 respectively.
+The color option can be a list of hexadecimal colors, ItsMyBot will randomly select one of the results.
+- Support the following components: [`text-display`](#text-display), [`section`](#section), [`action-row`](#action-row), [`media-gallery`](#media-gallery), [`separator`](#separator), [`file`](#file) & [`repeat`](#repeat).
 <CodeGroup>
 ```yaml {{ title: 'Usage' }}
-type: "select-menu"
-custom-id: "select1"
-placeholder: "Select an option" # Optional
-min-values: 0 # Optional, default to 0
-max-values: 1 # Optional, default to 1
-options: # Required
-  - label: "Option 1"
-    value: "option1"
-    conditions: # Optional
-      - id: aboveMembers
-        args:
-          amount: 10
+type: container
+components: # list of components
+spoiler: #boolean, optional
+color: #hexadecimal color | list, optional
 ```
 
 ```yaml {{ title: 'Example' }}
 components:
-  "1":
-    - type: "select-menu"
-      custom-id: "select1"
-      placeholder: "Select an option"
-      min-values: 0
-      max-values: 1
-      options:
-        - label: "Option 1"
-          value: "option1"
-        - label: "Option 2"
-          value: "option2"
-        - label: # Every value except type support random content with a list.
-            - "Option 3"
-            - "Option 4"
-          value: "option3"
-  "2":
-    - type: "select-menu"
-      custom-id: "select2"
-      placeholder: "Select an option"
-      min-values: 0
-      max-values: 1
-      options:
-        - label: "Option 1"
-          value: "option1"
-          conditions:
-            - id: bellowMembers
-              args:
-                amount: 4
-        - label: "Option 2"
-          value: "option2"
+  - type: container
+    color: "#00ff00"
+    components:
+      - type: text-display
+        content: "This is a container with a text display."
+      - type: action-row
+        components:
+          - type: button
+            label: "Click me !"
+            style: "primary"
+            custom-id: "button1"
+```
+</CodeGroup>
+
+## `section`
+A section is a component that can contain a text display and an accessory. It is used to display a text with an accessory, like a button or an image. You can add multiple text displays in a section, and they will be displayed one after the other.
+
+- Support the following components: [`text-display`](#text-display) & [`repeat`](#repeat).
+- Support the following accessories: [`button`](#button), [`thumbnail`](#thumbnail).
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: section
+components: # list of components
+accessory: # accessory component
+```
+
+```yaml {{ title: 'Example' }}
+components:
+  - type: section
+    components:
+      - type: text-display
+        content: "This is a section with a text display."
+      - type: text-display
+        content: "You can add multiple components in a section."
+    accessory: # The accessory of the section, it can be a button or an image.
+      type: button
+      label: "Click me !"
+      style: "url"
+      url: "https://itsme.to/discord"
+```
+</CodeGroup>
+
+## `action-row`
+An action row is a component that can contain multiple components. It is used to display a row of components, like buttons or select menus. 
+
+- Support the following components: [`button`](#button), [`select-menu`](#select-menu) & [`repeat`](#repeat).
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: action-row
+components: # list of components
+``` 
+
+```yaml {{ title: 'Example' }}
+components:
+  - type: action-row
+    components: # A row of buttons, maximum 5 buttons per row
+      - type: button
+        label: "First Button"
+        style: "primary"
+        custom-id: "button1"
+      - type: button
+        label: "Second Button"
+        style: "url"
+        url: "https://itsme.to/discord"
+  - type: action-row
+    components: # Only one select menu can be in an action row
+      - type: select-menu
+        custom-id: "select1"
+        options:
+          - label: "Option 1"
+            value: "option1"
+          - label: "Option 2"
+            value: "option2"
+```
+</CodeGroup>
+
+## `media-gallery`
+A media gallery is a component that can contain multiple images. It is used to display a gallery of media files. Item also support conditions.
+
+The url & description options can be a list of strings, ItsMyBot will randomly select one of the results.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: media-gallery
+items: # list of media items
+```
+
+```yaml {{ title: 'Usage Item' }}
+url: #url | list
+description: #string | list, optional
+spoiler: #boolean, optional
+```
+
+```yaml {{ title: 'Example' }}
+components:
+  - type: media-gallery
+    items: # A list of media items
+      - url: "https://example.com/image1.png" # The URL of the image
+        spoiler: true # Optional, if true the image will be a spoiler
+      - url: "https://example.com/image2.png" # The URL of the image
+      - url: "https://example.com/image3.png" # The URL of the image
+        description: "This is an image" # Optional, the description of the image
+```
+</CodeGroup>
+
+## `separator`
+A separator is a component that adds a separator between components. It is used to separate components visually.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: separator
+spacing: #1 or 2
+divider: #boolean, optional
+```
+
+```yaml {{ title: 'Example' }}
+components:
+  - type: separator
+    spacing: 1 
+  - type: separator
+    spacing: 2 # A separator with more spacing
+  - type: separator
+    spacing: 1
+    divider: false # An invisible separator
+```
+</CodeGroup>
+
+## `file`
+A file component allows you to attach a file to the message. It can be used to send images, documents, or any other type of file.
+
+The url option can be a list of strings, ItsMyBot will randomly select one of the results.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: file
+url: #url | list
+spoiler: #boolean, optional
+```
+
+```yaml {{ title: 'Example' }}
+components:
+  - type: file
+    url: "https://example.com/file.txt" # The URL of the file
+  - type: file
+    url: "https://example.com/image.png" # The URL of the image
+    spoiler: true # Optional, if true the file will be a spoiler
+```
+</CodeGroup>
+
+## `button`
+A button is a component that can be clicked by the user. It can be used to trigger an action or to navigate to a URL. You can also use the `custom-id` option to identify the button when it is clicked.
+
+The label, style, custom-id, url & emoji option can be a list of strings, ItsMyBot will randomly select one of the results.
+<Note>
+  To detect a button click with a script, the custom-id of the button needs to starts with `script_`.
+</Note>
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: button
+label: #string | list
+style: #string | list, optional, default is primary
+custom-id: #string | list, optional
+url: #string | list, optional
+emoji: #string | list, optional
+disabled: #boolean, optional, default is false
+```
+```yaml {{ title: 'Example' }}
+components:
+  - type: action-row
+    components:
+      - type: button
+        label: "Click me !"
+        style: "primary" # The style of the button, can be primary, secondary, success, danger, link
+        custom-id: "button1" # The custom id of the button, used to identify the button when it is clicked
+      - type: button
+        label: "Go to Discord"
+        style: "link" # The style of the button, can be primary, secondary, success, danger, link
+        url: "https://itsme.to/discord" # The URL to navigate to when the button is clicked
+      - type: button
+        label: "Script Button"
+        style: "primary"
+        custom-id: "script_my_script" # Can be detected with a script
+        emoji: "👋" # The emoji to display on the button
+      - type: button
+        label: "Disabled Button"
+        style: "secondary"
+        disabled: true # The button is disabled, it cannot be clicked
+```
+</CodeGroup>
+
+## `select-menu`
+A select menu is a component that allows the user to select an option from a list.
+
+The placeholder options can be a string or a list of strings, ItsMyBot will randomly select one of the results. 
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: select-menu
+custom-id: #string
+options: # list of options
+placeholder: #string | list, optional
+min-values: #integer, optional, default is 1
+max-values: #integer, optional, default is 1
+data-source: #string, optional, the data source to use for the select menu, see the repeat component for more information
+template: #list, optional, the template to use for the select menu
+```
+
+```yaml {{ title: 'Example' }}
+components:
+  - type: action-row
+    components: # A select menu, only one select menu can be in an action row
+      - type: select-menu
+        custom-id: "select1" # The custom id of the select menu, used to identify the select menu when it is selected
+        options: # The options of the select menu
+          - label: "Option 1"
+            value: "option1" # The value of the option, used to identify the option when it is selected
+          - label: "Option 2"
+            value: "option2"
+          - label: "Option 3"
+            value: "option3"
+        placeholder: "Select an option" # Optional, the placeholder of the select menu
+        min-values: 1 # Optional, the minimum number of values that can be selected
+        max-values: 2 # Optional, the maximum number of values that can be selected
+```
+</CodeGroup>
+
+## `thumbnail`
+A thumbnail is a component that displays an image. It's used to display an image in a section.
+
+The url option can be a list of strings, ItsMyBot will randomly select one of the results.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: thumbnail
+url: #url | list
+``` 
+
+```yaml {{ title: 'Example' }}
+components:
+  - type: section
+    components:
+      - type: text-display
+        content: "This is a section with a thumbnail."
+    accessory: # The accessory of the section, it can be a button or an image.
+      type: thumbnail
+      url: "https://example.com/image.png" # The URL of the image
+```
+</CodeGroup>
+
+## `repeat`
+A repeat compoent is a special compenent that don't exist in Discord. It's allow you to repeat the template multiple time depending on the content. Primarly used for pagination messages.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+type: repeat
+data-source: #string, the data source to use for the repeat component
+template: #list, the template to use for the repeat component
+```
+
+```yaml {{ title: 'Example' }}
+components:
+  - type: repeat
+    data-source: "pagination-items" # The data source to use for the repeat component.
+    template: # The template to use for the repeat component, it can be a list of components
+      - type: section
+        components:
+          - type: text-display  
+            content: "This is a section with a text display."
+        accessory: 
+          type: button
+          label: "Click me !"
+          style: "primary"
+          custom-id: "button1"
+      - type: separator
+        spacing: 1
 ```
 </CodeGroup>
