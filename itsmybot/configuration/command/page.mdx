@@ -3,12 +3,7 @@ export const description =
 
 export const sections = []
 
-# How to configure Command {{ hide: true }}
-Here you can find all the information on how to configure the command.
-
----
-
-# Command Properties
+# How to configure Command
 All the properties you can use in the message configuration. Every property is optional.
 
 <Properties>
@@ -21,23 +16,11 @@ All the properties you can use in the message configuration. Every property is o
   <Property name="cooldown" type="number">
     The cooldown of the command in seconds.
   </Property>
-  <Property name="roles" type="string[]">
-    The roles required to use the command.
-  </Property>
-  <Property name="inherited" type="boolean">
-    If true, member with a roles higher than the required roles can use the command.
-  </Property>
-  <Property name="permissions" type="string[]">
-    The permissions required to use the command.
-  </Property>
   <Property name="permission" type="string">
     Directly use discord permissions
   </Property>
-  <Property name="channels" type="string[]">
-    The channels where the command can be used.
-  </Property>
-  <Property name="users" type="string[]">
-    The users who can use the command.
+  <Property name="conditions" type="condition[]">
+    The conditions that must be met for the command to be executed. Find more information about [conditions here](/itsmybot/scripting/conditions).
   </Property>
 </Properties>
 
@@ -54,27 +37,27 @@ addons:
 
 ```yaml {{ title: 'Complex Command' }}
 server-info:
-  # Configuration can be added here.
   aliases: # The command can be used with the aliases "server" and "guild".
     - "server"
     - "guild"
   cooldown: 5 # The command can be used every 5 seconds.
-  channels: # The command can only be used in the following channels.
-    - "112233445566778899"
-    - "command-channel"
+  conditions:
+    - id: inChannel
+      args:
+        value: 
+          - "command-channel" # The command can only be used in the channel with the ID "command-channel".
+          - "112233445566778899" # The command can also be used in the channel with the ID "112233445566778899".
   description: "Show information about the server."
-```
 
-```yaml {{ title: 'Advanced Command' }}
 ban:
-  # Configuration can be added here.
   aliases: # The command can be used with the aliase "b".
     - "b"
-  roles: # The command requires the following roles.
-    - "Moderator"
-  inherited: true # Members with a role higher than "Moderator" can use the command.
-  permissions: # The command requires the following permissions.
-    - "BAN_MEMBERS"
+  conditions:
+    - id: hasRole
+      args:
+        value: "Moderator"
+        inherited: true # Members with a role higher than "Moderator" or "Moderator" can use the command.
+  permission: "BAN_MEMBERS"
   description: "Ban a member."
 ```
 </CodeGroup>
