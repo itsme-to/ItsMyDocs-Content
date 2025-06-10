@@ -1,5 +1,5 @@
 # Embeds Plugins
-Embeds is a simple plugin that allows you to create embeds and message with a yaml configuration file.
+Embeds is a simple plugin that allows you to create embeds and messages with a YAML configuration file.
 
 <div className="not-prose mb-16 mt-6 flex flex-wrap gap-3">
   <Button href="https://builtbybit.com/resources/28488/" arrow="right" children="Purchase" />
@@ -12,7 +12,7 @@ Create a new file in the `configs/Embeds/embeds` folder or one of its subfolders
 For the syntax of the configuration file, see the [Message configuration](/itsmybot/configuration/message) page.
 
 ## Update an Embed
-To make an embed updateable, you need to add the `update-time` property to the embed configuration. The value of this property is the time in minutes after which the embed will be updated. The embed will be updated with the new content in the configuration and update all the placeholders.
+To make an embed updatable, you need to add the `update-time` property to the embed configuration. The value of this property is the time in minutes after which the embed will be updated. The embed will be updated with the new content in the configuration and update all the placeholders.
 
 ## Example
 ```yaml
@@ -30,6 +30,6 @@ embeds:
     Send an embed message to a channel.
   </Property>
   <Property name="/embed edit <message-link> [embed]">
-    Send an embed message to a channel.
+    Edit an embed message in a channel.
   </Property>
 </Properties>

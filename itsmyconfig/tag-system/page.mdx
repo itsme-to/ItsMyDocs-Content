@@ -12,20 +12,20 @@ export const sections = [
 ]
 
 
-# Tag system
+# Tag System
 
-ItsMyConfig add support of MiniMessage in every message with the symbol prefix. But it's also create custom tags to add more possibilities to your messages.
+ItsMyConfig adds support for MiniMessage in every message with the symbol prefix. It also creates custom tags to add more possibilities to your messages.
 
 <div className="not-prose">
-  <Button href="https://docs.advntr.dev/minimessage/format.html" variant="text" arrow="right" children="See miniMessage tags"/>
+  <Button href="https://docs.advntr.dev/minimessage/format.html" variant="text" arrow="right" children="See MiniMessage tags"/>
 </div>
 
 <Properties>
   <Property name="<placeholder:_placeholder_>">
-    Return the placeholder value
+    Returns the placeholder value.
   </Property>
   <Property name="<placeholder:_placeholder_:_arg-1_:_arg-2_>">
-    Return the placeholder value with arguments
+    Returns the placeholder value with arguments.
   </Property>
 </Properties>
 
@@ -34,7 +34,7 @@ ItsMyConfig add support of MiniMessage in every message with the symbol prefix. 
 ## PlaceholderAPI
 `<papi:_placeholder_>`
 
-Return the value of the PlaceholderAPI placeholder
+Returns the value of the PlaceholderAPI placeholder.
 
 ```yaml {{ title: 'Example' }}
 - "<papi:player_name>"
@@ -46,11 +46,10 @@ Return the value of the PlaceholderAPI placeholder
 ## Action Bar
 `<actionbar:_text_>`
 
-Send the message part in the Action Bar
+Sends the message part in the Action Bar.
 
 ```yaml {{ title: 'Example' }}
-- "<actionbar:'%player% joined the game'>"
-- "%player% joined the game!<actionbar:'Welcome %player%'>"
+- "<actionbar:Welcome to the server!>"
 ```
 
 ---
