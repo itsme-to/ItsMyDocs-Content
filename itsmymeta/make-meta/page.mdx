@@ -1,25 +1,24 @@
-
 ## Configuration
 
-The ItsMyMeta plugin allows for comprehensive and detailed configuration, tailored to your specific needs. This section introduces you to the various parameters and how they're utilized in the configuration process.
+The ItsMyMeta plugin allows for comprehensive and detailed configuration tailored to your specific needs. This section introduces the various parameters and their utilization in the configuration process.
 
-In the example, each item within this category consists of an id and a type. The id uniquely identifies each piece of metadata, while the type defines the kind of data to be stored (e.g., string, integer, double).
+In the example, each item within this category consists of an ID and a type. The ID uniquely identifies each piece of metadata, while the type defines the kind of data to be stored (e.g., string, integer, double).
 
 The subsequent sections delve deeper into each parameter and its possible values, providing a comprehensive guide to configuring ItsMyMeta to your specific needs.
 
 ```yaml
 meta:
 - id: "MetaId"
-type: #
+  type: #
 ```
 
 ---
 
 ## Type
-This parameter defines the type of data or 'meta' you wish to store
+This parameter defines the type of data or 'meta' you wish to store.
 
-### Supported type:
-| Type | Example | Description | 
+### Supported types:
+| Type | Example | Description |
 |---|---|---|
 | `string` | Hello world | A sequence of characters or text. |
 | `integer` | 12345 | A whole number without decimals. |
@@ -43,15 +42,15 @@ type: integer
 ## Team
 Team Mode offers the functionality to assign identical values to all players within a designated team.
 
-### Supported team:
+### Supported teams:
 | ID | Description |
-| --- | --- | 
-| `player` | All players have their own value |
-| `global` | All players have the same value |
-| `superiorSkyblock2` | All members of the island have the same value |
-| `bentoBox` | All members of the island have the same value |
-| `factionsUUID` | All members of the faction have the same value |
-| `huskTown` | All members of the town have the same value |
+| --- | --- |
+| `player` | All players have their own value. |
+| `global` | All players have the same value. |
+| `superiorSkyblock2` | All members of the island have the same value. |
+| `bentoBox` | All members of the island have the same value. |
+| `factionsUUID` | All members of the faction have the same value. |
+| `huskTown` | All members of the town have the same value. |
 
 <CodeGroup>
 
@@ -79,12 +78,12 @@ default: TEXT | NUMBER
 ```yaml {{ title: 'Example' }}
 meta:
 - id: example_text
-type: string
-default: "Hello World"
+  type: string
+  default: "Hello World"
 
 - id: example_number
-type: double
-default: 5.6
+  type: double
+  default: 5.6
 ```
 
 </CodeGroup>
