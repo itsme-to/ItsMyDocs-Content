@@ -11,7 +11,7 @@ You can define conditions in script, custom commands, embeds, commands, and more
 As shown in the example above, all conditions can include an optional `invert` argument:
 
 ```yaml
-- id: aboveMembers
+- id: memberCountAbove
   args:
     amount: 100
     invert: true # Optional
@@ -47,23 +47,6 @@ In this example, if the user does **not** have the `MANAGE_MESSAGES` permission,
 
 ---
 # All Conditions
-## aboveMembers
-Check if the amount of members in a guild is above a certain number.
-
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-id: aboveMembers
-args:
-  amount: #number
-```
-
-```yaml {{ title: 'Example' }}
-conditions:
-  - id: aboveMembers
-    args:
-      amount: 100
-```
-</CodeGroup>
 
 ## anyOf
 Check if any of the conditions are true.
@@ -79,10 +62,10 @@ conditions:
   - id: anyOf
     args:
       conditions: 
-        - id: aboveMembers
+        - id: memberCountAbove
           args:
             amount: 100
-        - id: bellowMembers
+        - id: memberCountBelow
           args:
             amount: 50
 ```
@@ -105,55 +88,13 @@ conditions:
     args:
       amount: 2
       conditions: 
-        - id: aboveMembers
+        - id: memberCountAbove
           args:
             amount: 100
         - id: '!isBot'
         - id: 'isUser'
           args:
             value: "123456789012345678"
-```
-</CodeGroup>
-
-## bellowMembers
-Check if the amount of members in a guild is bellow a certain number.
-
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-id: bellowMembers
-args:
-  amount: #number
-```
-
-```yaml {{ title: 'Example' }}
-conditions:
-  - id: bellowMembers
-    args:
-      amount: 100
-```
-</CodeGroup>
-
-## content
-Check if the content of a trigger equals a certain text.
-
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-id: content
-args:
-  value: #string or array of strings, the text to check
-  ignore-case: #boolean, if the check should be case-insensitive (optional)
-```
-```yaml {{ title: 'Example' }}
-conditions:
-  - id: content
-    args:
-      value: # Check if the content is equal to "Hello" or "World"
-        - "Hello"
-        - "World"
-      ignore-case: true  # Optional
-  - id: content
-    args:
-      value: "Hello"
 ```
 </CodeGroup>
 
@@ -182,32 +123,111 @@ conditions:
 ```
 </CodeGroup>
 
-## isExpressionTrue
-Check if an expression is true.
-
-<Note>
-  This condition have a special format to easily use expressions. You can directly use the expression in the `conditions` section without needing to define it in the `args`.
-</Note>
+## contentEndsWith
+Check if the content of a trigger ends with certain text.
 <CodeGroup>
 ```yaml {{ title: 'Usage' }}
-id: isExpressionTrue
+id: contentEndsWith
 args:
-  value: #string, the expression to check
+  value: #string or array of strings, the text to check
+  ignore-case: #boolean, if the check should be case-insensitive (optional)
 ```
 
 ```yaml {{ title: 'Example' }}
 conditions:
-  - id: isExpressionTrue
+  - id: contentEndsWith
     args:
-      value: "%server_channels% >= 0"
-```
-
-```yaml {{ title: 'Bonus format' }}
-conditions:
-  - expression: "%server_channels% >= 0"
+      value: # Check if the content ends with "Hello" or "World"
+        - "Hello"
+        - "World"
+      ignore-case: true # Optional
+  - id: contentEndsWith
+    args:
+      value: "Hello"
 ```
 </CodeGroup>
 
+## contentEquals
+Check if the content of a trigger equals a certain text.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: contentEquals
+args:
+  value: #string or array of strings, the text to check
+  ignore-case: #boolean, if the check should be case-insensitive (optional)
+```
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: contentEquals
+    args:
+      value: # Check if the content is equal to "Hello" or "World"
+        - "Hello"
+        - "World"
+      ignore-case: true  # Optional
+  - id: content
+    args:
+      value: "Hello"
+```
+</CodeGroup>
+
+## contentLengthAbove
+Check if the content of a trigger is above a certain length.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: contentLengthAbove
+args:
+  amount: #number, the length to check
+```
+
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: contentLengthAbove
+    args:
+      amount: 10 # Check if the content length is above 10 characters
+```
+</CodeGroup>
+
+## contentLengthBelow
+Check if the content of a trigger is below a certain length.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: contentLengthBelow
+args:
+  amount: #number, the length to check
+``` 
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: contentLengthBelow
+    args:
+      amount: 10 # Check if the content length is below 10 characters
+```
+</CodeGroup>
+
+## contentStartsWith
+Check if a content of an action starts with a certain text.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: contentStartsWith
+args:
+  value: #string or array of strings, the text to check
+  ignore-case: #boolean, if the check should be case-insensitive (optional)
+```
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: contentStartsWith
+    args:
+      value: 
+        - "Hello"
+        - "World"
+      ignore-case: true # Optional
+  - id: contentStartsWith
+    args:
+      value: "Hello"
+```
+</CodeGroup>
 
 ## hasPermission
 Check if a user has a certain permission.
@@ -255,41 +275,6 @@ conditions:
 ```
 </CodeGroup>
 
-## isBot
-Check if a user is a bot.
-
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-id: isBot
-```
-```yaml {{ title: 'Example' }}
-conditions:
-  - id: isBot
-```
-</CodeGroup>
-
-## isUser
-Check if a user is a certain user
-<CodeGroup>
-```yaml {{ title: 'Usage' }}
-id: isUser
-args:
-  value: #string or array of strings, the user ID
-```
-
-```yaml {{ title: 'Example' }}
-conditions:
-  - id: isUser
-    args:
-      value: "123456789012345678" # User ID
-  - id: isUser
-    args:
-      value: 
-        - "123456789012345678" # User ID
-        - "987654321098765432" # User ID
-```
-</CodeGroup>
-
 ## inChannel
 Check if a message is in a certain channel or category.
 
@@ -325,46 +310,234 @@ conditions:
 ```
 </CodeGroup>
 
-## regex
+## isBooster
+Check if a user is a server booster.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: isBooster
+```
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: isBooster
+```
+</CodeGroup>
+
+## isBot
+Check if a user is a bot.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: isBot
+```
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: isBot
+  - id: '!isBot'
+```
+</CodeGroup>
+
+## isExpressionTrue
+Check if an expression is true.
+
+<Note>
+  This condition have a special format to easily use expressions. You can directly use the expression in the `conditions` section without needing to define it in the `args`.
+</Note>
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: isExpressionTrue
+args:
+  value: #string, the expression to check
+```
+
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: isExpressionTrue
+    args:
+      value: "%server_channels% >= 0"
+```
+
+```yaml {{ title: 'Bonus format' }}
+conditions:
+  - expression: "%server_channels% >= 0"
+```
+</CodeGroup>
+
+## isOnCooldown
+Check if a user is on cooldown for a certain action.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: isOnCooldown
+args:
+  value: #string, the action ID to check cooldown for
+```
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: isOnCooldown
+    args:
+      value: "exampleAction" # Action ID
+```
+</CodeGroup>
+
+## isReply
+Check if a message is a reply to another message.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: isReply
+```
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: isReply
+```
+</CodeGroup>
+
+## isUser
+Check if a user is a certain user
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: isUser
+args:
+  value: #string or array of strings, the user ID
+```
+
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: isUser
+    args:
+      value: "123456789012345678" # User ID
+  - id: isUser
+    args:
+      value: 
+        - "123456789012345678" # User ID
+        - "987654321098765432" # User ID
+```
+</CodeGroup>
+
+## matchesRegex
 Check if the content of an action matches a certain regex pattern.
 
 <CodeGroup>
 ```yaml {{ title: 'Usage' }}
-id: regex
+id: matchesRegex
 args:
   value: #string, the regex pattern to check
 ```
 ```yaml {{ title: 'Example' }}
 conditions:
-  - id: regex
+  - id: matchesRegex
     args:
       value: "^[a-zA-Z0-9]+$" # Regex pattern
-  - id: regex
+  - id: matchesRegex
     args:
       value: "^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$" # Regex pattern for email validation
 ```
 </CodeGroup>
 
-## startsWith
-Check if a content of an action starts with a certain text.
+## memberCountAbove
+Check if the amount of members in a guild is above a certain number.
 
 <CodeGroup>
 ```yaml {{ title: 'Usage' }}
-id: startsWith
+id: memberCountAbove
 args:
-  value: #string or array of strings, the text to check
-  ignore-case: #boolean, if the check should be case-insensitive (optional)
+  amount: #number
+```
+
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: memberCountAbove
+    args:
+      amount: 100
+```
+</CodeGroup>
+
+## memberCountBelow
+Check if the amount of members in a guild is below a certain number.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: memberCountBelow
+args:
+  amount: #number
+```
+
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: memberCountBelow
+    args:
+      amount: 100
+```
+</CodeGroup>
+
+## metaAbove
+Check if a meta value is above a certain number. Only works with `number` type.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: metaAbove
+args:
+  key: #string, the meta key to check
+  value: #number, the value to check against
 ```
 ```yaml {{ title: 'Example' }}
 conditions:
-  - id: startsWith
+  - id: metaAbove
     args:
-      value: 
-        - "Hello"
-        - "World"
-      ignore-case: true # Optional
-  - id: startsWith
+      key: "exampleMetaKey" # Meta key
+      value: 100 # Value to check against
+```
+</CodeGroup>
+
+## metaBelow
+Check if a meta value is below a certain number. Only works with `number` type.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: metaBelow
+args:
+  key: #string, the meta key to check
+  value: #number, the value to check against
+```
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: metaBelow
     args:
-      value: "Hello"
+      key: "exampleMetaKey" # Meta key
+      value: 100 # Value to check against
+```
+</CodeGroup>
+
+## metaEquals
+Check if a meta value equals a certain value. Only works with `number, string, boolean` type.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: metaEquals
+args:
+  key: #string, the meta key to check
+  value: #string, the value to check against
+```
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: metaEquals
+    args:
+      key: "exampleMetaKey" # Meta key
+      value: "exampleValue" # Value to check against
+```
+</CodeGroup>
+
+## metaIncludes
+Check if a meta value includes a certain value. Only works with `list` type.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: metaIncludes
+args:
+  key: #string, the meta key to check
+  value: #string, the value to check against
+```
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: metaIncludes
+    args:
+      key: "exampleMetaKey" # Meta key
+      value: "exampleValue" # Value to check against
 ```
 </CodeGroup>

@@ -170,8 +170,11 @@ Retrieve information about the performance of the bot.
 ## Meta
 Retrieve information about the meta data. You can find more information about meta [here](/itsmybot/scripting/meta/).
 ```
-%meta_<key>_<mode>_<type>_<default-value>%
-%meta_has_<key>_<mode>_<type>%
+%meta_<key>%
+%meta_has_<key>%
+%meta_include_<key>% # Only for 'list' type
+%meta_<key>_length% # Only for 'list' type
+%meta_<key>_formatted% # Only for 'list' type
 ```
 
 ---

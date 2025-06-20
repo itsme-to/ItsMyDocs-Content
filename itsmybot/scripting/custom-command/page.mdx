@@ -3,7 +3,7 @@ export const description = 'Create custom commands to extend the functionality o
 # Create Custom Commands
 With ItsMyBot and the [scripting](/itsmybot/scripting/) system, you can create custom commands to extend the bot's functionalities. These commands can be used to perform various actions, such as sending messages, managing roles, and more.
 
-Each custom command need to be created in the custom-commands folder in the bot's directory. It's support subfolders, so you can organize your commands as you want. Each command is a .yml file that contains the command's configuration. You can disable a command by adding a underscore at the beginning of the file name, for example: `_my-command.yml`.
+Each custom command need to be created in the `scripting/custom-commands` folder in the bot's directory. It's support subfolders, so you can organize your commands as you want. Each command is a .yml file that contains the command's configuration. You can disable a command by adding a underscore at the beginning of the file name, for example: `_my-command.yml`.
 
 ## Command Structure
 A custom command is a YAML file that contains the following structure:
@@ -34,7 +34,9 @@ actions:
     - id: reply
       args:
         delay: 3
-        content: "Role %option_role_mention% added to %option_user_mention%"
+        components: 
+          - type: text-display
+            content: "Role %option_role_mention% added to %option_user_mention%"
     mutators:
       member: "%option_user_id%" # Transform the main member to the user selected in the option.
 ```

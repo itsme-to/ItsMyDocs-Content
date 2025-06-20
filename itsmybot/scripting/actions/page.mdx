@@ -4,108 +4,395 @@ The actions are the main part of the bot. They are used to perform actions when 
 ---
 # All Actions
 
+## addInviteBonus
+Add bonus invites to a user. Requires the [Invite Traker](/itsmybot/addons/invites/) addon.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: addInviteBonus
+args:
+  amount: # Amount of bonus invites
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: addInviteBonus
+    args:
+      amount: 5 # Amount of bonus invites
+```
+</CodeGroup>
+
 ## addReaction
 Add a reaction to a message. The reaction can be an emoji or a custom emoji.
 
-```yaml
-- id: addReaction
-  args:
-    value: "✅"
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: addReaction
+args:
+  value: #Emoji or array of Emoji
 ```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: addReaction
+    args:
+      value: "✅"
+```
+</CodeGroup>
 
 ## addRole
 Add a role to a member. The role can be a string or an array of strings.
 
-```yaml
-- id: addRole
-  args:
-    value: "Admin" # Role ID or name
-- id: addRole
-  args:
-    value:
-      - "Admin" # Role ID or name
-      - "Moderator" # Role ID or name
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: addRole
+args:
+  value: # Role ID or name
 ```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: addRole
+    args:
+      value: "Admin" # Role ID or name
+  - id: addRole
+    args:
+      value:
+        - "Admin" # Role ID or name
+        - "Moderator" # Role ID or name
+```
+</CodeGroup>
 
 ## deleteMessage
 Delete a message.
 
-```yaml
-- id: deleteMessage
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: deleteMessage
 ```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: deleteMessage
+```
+</CodeGroup>
+
+## editMessage
+Edit a message. You can see the [message configuration](/itsmybot/configuration/message) for more information.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: editMessage
+args:
+  # <messsage configuration>
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: editMessage
+    args:
+      components:
+        - type: text-display
+          content: "Hello there !"
+```
+</CodeGroup>
+
+## metaAdd
+Increase the value of a key in the [meta](/itsmybot/scripting/meta) data. Only works with `number` type.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: metaAdd
+args:
+  key: # Key to add the value to
+  value: # Value to add
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: metaAdd
+    args:
+      key: "xp" # Key to add the value to
+      value: 100 # Value to add
+```
+</CodeGroup>
+
+## metaListAdd
+Add a value to a [meta](/itsmybot/scripting/meta) list. Only works with `list` type.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: metaListAdd
+args:
+  key: # Key to add the value to
+  value: # Value to add
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: metaListAdd
+    args:
+      key: "inventory" # Key to add the value to
+      value: "item_1" # Value to add
+```
+</CodeGroup>
+
+## metaListRemove
+Remove a value from a [meta](/itsmybot/scripting/meta) list. Only works with `list` type.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: metaListRemove
+args:
+  key: # Key to remove the value from
+  value: # Value to remove
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: metaListRemove
+    args:
+      key: "inventory" # Key to remove the value from
+      value: "item_1" # Value to remove
+```
+</CodeGroup>
+
+## metaRemove
+Remove a value from the [meta](/itsmybot/scripting/meta) data.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: metaRemove
+args:
+  key: # Key to remove the value from
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: metaRemove
+    args:
+      key: "xp" # Key to remove the value from
+```
+</CodeGroup>
+
+## metaSet
+Set a value to a key in the [meta](/itsmybot/scripting/meta) data.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: metaSet
+args:
+  key: # Key to set the value to
+  value: # Value to set
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: metaSet
+    args:
+      key: "xp" # Key to set the value to
+      value: 100 # Value to set
+```
+</CodeGroup>
+
+## metaSubtract
+Decrease the value of a key in the [meta](/itsmybot/scripting/meta) data. Only works with `number` type.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: metaSubtract
+args:
+  key: # Key to subtract the value from
+  value: # Value to subtract
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: metaSubtract
+    args:
+      key: "xp" # Key to subtract the value from
+      value: 50 # Value to subtract
+```
+</CodeGroup>
+
+## metaToggle
+Toggle a value in the [meta](/itsmybot/scripting/meta) data. Only works with `boolean` type.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: metaToggle
+args:
+  key: # Key to toggle the value for
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: metaToggle
+    args:
+      key: "is_active" # Key to toggle the value for
+```
+</CodeGroup>
 
 ## pinMessage
 Pin a message.
 
-```yaml
-- id: pinMessage
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: pinMessage
 ```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: pinMessage
+```
+</CodeGroup>
+
+## randomAction
+Run a random action from a list of actions. The actions can be defined in the `actions` array. If the `actions` array is empty, the action will do nothing.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: randomAction
+args:
+  actions: # Array of actions to run
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: randomAction
+    args:
+      actions:
+        - id: sendMessage
+          args:
+            content: "Hello there !"
+        - id: addReaction
+          args:
+            value: "✅"
+```
+</CodeGroup>
+
+
+## removeInviteBonus
+Remove bonus invites to a user. Requires the [Invite Traker](/itsmybot/addons/invites/) addon.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: removeInviteBonus
+args:
+  amount: # Amount of bonus invites
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: removeInviteBonus
+    args:
+      amount: 5 # Amount of bonus invites
+```
+</CodeGroup>
 
 ## removeReaction
 Remove a reaction from a message. The reaction can be an emoji or a custom emoji. If no value is provided, every reaction is removed.
 
-```yaml
-- id: removeReaction
-  args:
-    value: "✅"
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: removeReaction
+args:
+  value: # Emoji or array of Emoji, optional
 ```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: removeReaction
+    args:
+      value: "✅" # Remove a specific reaction
+```
+</CodeGroup>
 
 ## removeRole
 Remove a role from a member. The role can be a string or an array of strings.
 
-```yaml
-- id: removeRole
-  args:
-    value: "Admin" # Role ID or name
-- id: removeRole
-  args:
-    value:
-      - "Admin" # Role ID or name
-      - "Moderator" # Role ID or name
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: removeRole
+args:
+  value: # Role ID or name, optional
 ```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: removeRole
+    args:
+      value: "Admin" # Role ID or name
+  - id: removeRole
+    args:
+      value:
+        - "Admin" # Role ID or name
+        - "Moderator" # Role ID or name
+```
+</CodeGroup>
 
 ## reply
 Reply to a message or an interaction. You can see the [message configuration](/itsmybot/configuration/message) for more information.
 **Can triggers actions**
 
-```yaml
-- id: reply
-  args:
-    content: "Hello there !"
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: reply
+args:
+  # <message configuration>
 ```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: reply
+    args:
+      content: "Hello there !"
+  - id: reply
+    args:
+      components:
+        - type: text-display
+          content: "This is a reply"
+```
+</CodeGroup>
+
+## resetCooldown
+Reset a cooldown for a user. 
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: resetCooldown
+args:
+  value: # Cooldown name
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: resetCooldown
+    args:
+      value: "daily_reward" # Cooldown name
+```
+</CodeGroup>
+
 ## sendMessage
 Send a message. You can see the [message configuration](/itsmybot/configuration/message) for more information.
-**Can triggers actions**
 
-```yaml
-- id: sendMessage
-  args:
-    embeds:
-      - title: "Hello there !"
-        description: "This is a test message"
-        color: "#00ff00"
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: sendMessage
+args:
+  # <message configuration>
 ```
-
-## editMessage
-Edit a message. You can see the [message configuration](/itsmybot/configuration/message) for more information.
-
-```yaml
-- id: editMessage
-  args:
-    content: "Hello there !"
-    embeds:
-      - title: "This is an edit"
-        description: "This is a test message"
+```yaml {{ title: 'Example' }}
+actions:
+  - id: sendMessage
+    args:
+      content: "Hello there !"
+  - id: sendMessage
+    args:
+      components:
+        - type: text-display
+          content: "This is a message"
 ```
+</CodeGroup>
 
 ## sendPrivateMessage
-Send a private message. You can see the [message configuration](/itsmybot/configuration/message) for more information.
-
-```yaml
-- id: sendPrivateMessage
-  args:
-    content: "Hello %user_mention% !"
+Send a private message to a user. You can see the [message configuration](/itsmybot/configuration/message) for more information. If the user has private messages disabled, the message will not be sent.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: sendPrivateMessage
+args:
+  # <message configuration>
 ```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: sendPrivateMessage
+    args:
+      content: "Hello there !"
+  - id: sendPrivateMessage
+    args:
+      components:
+        - type: text-display
+          content: "This is a private message"
+```
+</CodeGroup>
 
 ## sendRequest
 Send a http request. New placeholders will be added when you trigger an action after this action. With the format `%data_<object>%`. If you want a value that is inside an object, you can add the path with underscore `_`. For example, if you want the value of `user.id`, you can use `%data_user_id%`.
@@ -121,7 +408,6 @@ Send a http request. New placeholders will be added when you trigger an action a
     body: # Optional
       key: 'value' # Body
 ```
-
 ```yaml {{ title: 'Example' }}
 - id: sendRequest
   args:
@@ -133,59 +419,93 @@ Send a http request. New placeholders will be added when you trigger an action a
 ```
 </CodeGroup>
 
+## setCooldown
+Set a cooldown for a user.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: setCooldown
+args:
+  value: # Cooldown name
+  duration: # Duration in seconds
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: setCooldown
+    args:
+      value: "daily_reward" # Cooldown name
+      duration: 86400 # Duration in seconds (1 day)
+```
+</CodeGroup>
+
+
+## setInviteBonus
+Set bonus invites to a user. Requires the [Invite Traker](/itsmybot/addons/invites/) addon.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: setInviteBonus
+args:
+  amount: # Amount of bonus invites
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: setInviteBonus
+    args:
+      amount: 5 # Amount of bonus invites
+```
+</CodeGroup>
+
 ## startThread
 Start a thread. If the value is a array, a random value will be selected.
 ***Can triggers actions**
 
-```yaml
-- id: startThread
-  args:
-    value: "Hello there !"
-- id: startThread
-  args:
-    value:
-      - "Thread 1"
-      - "Thread 2"
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: startThread
+args:
+  value: # String or array of strings, the thread name
 ```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: startThread
+    args:
+      value: "Hello there !" # Thread name
+  - id: startThread
+    args:
+      value:
+        - "Thread 1" # Thread name
+        - "Thread 2" # Thread name
+```
+</CodeGroup>
+
+## timeoutMember
+Timeout a member for a certain duration. The duration is in seconds.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: timeoutMember
+args:
+  value: # User ID or mention
+  duration: # Duration in seconds
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: timeoutMember
+    args:
+      value: "123456789012345678" # User ID or mention
+      duration: 3600 # Duration in seconds (1 hour)
+```
+</CodeGroup>
 
 ## unpinMessage
 Unpin a message.
 
-```yaml
-- id: unpinMessage
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: unpinMessage
 ```
-
-## openForm
-Open a form. Requires the Forms addon.
-
-```yaml
-- id: openForm
-  args:
-    value: "form_id" # Form ID
+```yaml {{ title: 'Example' }}
+actions:
+  - id: unpinMessage
 ```
-
-## addInviteBonus
-Add bonus invites to a user. Requires the [Invite Traker](/itsmybot/addons/invites/) addon.
-
-```yaml
-- id: addInviteBonus
-  args:
-    amount: 5 # Amount of bonus invites
-```
-
-## removeInviteBonus
-Remove bonus invites to a user. Requires the [Invite Traker](/itsmybot/addons/invites/) addon.
-
-```yaml
-- id: removeInviteBonus
-  args:
-    amount: 5 # Amount of bonus invites
-```
-## setInviteBonus
-Set bonus invites to a user. Requires the [Invite Traker](/itsmybot/addons/invites/) addon.
-
-```yaml
-- id: setInviteBonus
-  args:
-    amount: 5 # Amount of bonus invites
-```
+</CodeGroup>

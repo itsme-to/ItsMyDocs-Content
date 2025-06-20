@@ -9,14 +9,15 @@ You can have actions in scripts, custom commands, and more.
 actions:
   - id: sendMessage
     args:
-      content: "Hello there !"
+      components:
+        - type: text-display
+          content: "Hello there !"
       chance: 0.25 # 25% chance to send the message
-    triggers:
-      - everyHour
+    triggers: everyHour
     mutators:
       channel: "935421560355946596" # Channel ID or name
     conditions:
-      - id: aboveMembers
+      - id: memberCountAbove
         args:
           amount: 100 # Number of members in the server
 ```
@@ -62,10 +63,11 @@ Some actions have optional arguments that can be used to modify the behavior of 
     ```yaml
     actions:
       - id: sendMessage
-        triggers:
-          - messageCreate
+        triggers: messageCreate
         args:
-          content: "Hello there !"
+          components:
+            - type: text-display
+              content: "Hello there !"
           actions:
             - id: deleteMessage
               args:
@@ -79,12 +81,13 @@ You can chain multiple actions together by using the `actions` property. This al
 With the action chain, multiple actions can be impacted by the same trigger. With the mutators & conditions that apply to all actions in the chain.
 ```yaml
 actions:
-  - triggers:
-      - messageCreate
+  - triggers: messageCreate
     actions:
       - id: reply
         args:
-          content: "Hello there !"
+          components:
+            - type: text-display
+              content: "This is a reply to your message."
       - id: addReaction
         args:
           value: "✅"
