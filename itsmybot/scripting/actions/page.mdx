@@ -4,6 +4,22 @@ The actions are the main part of the bot. They are used to perform actions when 
 ---
 # All Actions
 
+## addCoins
+Add coins to a user. 
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: addCoins
+args:
+  amount: # Amount of coins to add
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: addCoins
+    args:
+      amount: 100 # Amount of coins to add
+```
+</CodeGroup>
+
 ## addInviteBonus
 Add bonus invites to a user. Requires the [Invite Traker](/itsmybot/addons/invites/) addon.
 
@@ -255,6 +271,21 @@ actions:
 ```
 </CodeGroup>
 
+## removeCoins
+Remove coins from a user.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: removeCoins
+args:
+  amount: # Amount of coins to remove
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: removeCoins
+    args:
+      amount: 50 # Amount of coins to remove
+```
+</CodeGroup>
 
 ## removeInviteBonus
 Remove bonus invites to a user. Requires the [Invite Traker](/itsmybot/addons/invites/) addon.
@@ -416,6 +447,22 @@ Send a http request. New placeholders will be added when you trigger an action a
       - id: sendMessage
         args:
           content: "Players %data_players_online%/%data_players_max% | Version %data_version_name_clean%"
+```
+</CodeGroup>
+
+## setCoins
+Set the amount of coins for a user.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: setCoins
+args:
+  amount: # Amount of coins to set
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: setCoins
+    args:
+      amount: 1000 # Amount of coins to set
 ```
 </CodeGroup>
 

@@ -98,6 +98,38 @@ conditions:
 ```
 </CodeGroup>
 
+## coinsAbove
+Check if a user has more than a certain amount of coins.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: coinsAbove
+args:
+  amount: #number, the amount of coins to check
+```
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: coinsAbove
+    args:
+      amount: 1000 # Check if the user has more than 1000 coins
+```
+</CodeGroup>
+
+## coinsBelow
+Check if a user has less than a certain amount of coins.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: coinsBelow
+args:
+  amount: #number, the amount of coins to check
+```
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: coinsBelow
+    args:
+      amount: 1000 # Check if the user has less than 1000 coins
+```
+</CodeGroup>
+
 ## contentContains
 Check if the content of a trigger contains certain text.
 
