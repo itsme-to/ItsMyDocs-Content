@@ -173,119 +173,61 @@ actions:
     conditions:
       - id: 'contentEquals' # Check the id of the button.
         args:
-          value: "script_suggestion-like"
-      - id: '!metaIncludes' # Check if the user has not already liked the suggestion.
-        args:
-          key: "suggestion-likes"
-          value: "%user_id%"
-        not-met-actions: # If the user has already liked the suggestion, remove their like and edit the message.
-          - id: metaListRemove
+          value: 
+            - "script_suggestion-like"
+            - "script_suggestion-dislike"
+    actions:
+      - conditions:
+          - id: 'contentEquals' # Check if the button clicked is the like button.
+            args:
+              value: "script_suggestion-like"
+          - id: '!metaIncludes' # Check if the user has not already liked the suggestion.
             args:
               key: "suggestion-likes"
               value: "%user_id%"
-          - id: editMessage # Edit the message to update the like count.
+            not-met-actions: # If the user has already liked the suggestion, remove their like and edit the message.
+              - id: metaListRemove
+                args:
+                  key: "suggestion-likes"
+                  value: "%user_id%"
+        actions:
+          - id: metaListAdd
             args:
-              components:
-                - type: text-display
-                  content: | 
-                    ### New suggestion from %meta_suggestion-author%
-                    %meta_suggestion%
-                - type: action-row
-                  components:
-                    - type: button
-                      style: primary
-                      label: "Like (%meta_suggestion-likes_length%)"
-                      custom-id: "script_suggestion-like"
-                    - type: button
-                      style: secondary
-                      label: "Dislike (%meta_suggestion-dislikes_length%)"
-                      custom-id: "script_suggestion-dislike"
-          - id: reply # Reply to the user that they have already liked the suggestion.
+              key: "suggestion-likes"
+              value: "%user_id%"
+          - id: metaListRemove # Remove the user's dislike if they liked the suggestion.
             args:
-              ephemeral: true
-              components:
-                - type: text-display
-                  content: "You have already liked this suggestion, your vote has been removed."
-    actions: # If the user has not already liked the suggestion, add their like and edit the message.
-      - id: metaListAdd
-        args:
-          key: "suggestion-likes"
-          value: "%user_id%"
-      - id: metaListRemove # Remove the user's dislike if they liked the suggestion.
-        args:
-          key: "suggestion-dislikes"
-          value: "%user_id%"
-      - id: editMessage # Edit the message to update the like count.
-        args:
-          components:
-            - type: text-display
-              content: | 
-                ### New suggestion from %meta_suggestion-author%
-                %meta_suggestion%
-            - type: action-row
-              components:
-                - type: button
-                  style: primary
-                  label: "Like (%meta_suggestion-likes_length%)"
-                  custom-id: "script_suggestion-like"
-                - type: button
-                  style: secondary
-                  label: "Dislike (%meta_suggestion-dislikes_length%)"
-                  custom-id: "script_suggestion-dislike"
+              key: "suggestion-dislikes"
+              value: "%user_id%"
+      - conditions:
+          - id: 'contentEquals' # Check if the button clicked is the like button.
+            args:
+              value: "script_suggestion-dislike"
+          - id: '!metaIncludes' # Check if the user has not already liked the suggestion.
+            args:
+              key: "suggestion-dislikes"
+              value: "%user_id%"
+            not-met-actions: # If the user has already liked the suggestion, remove their like and edit the message.
+              - id: metaListRemove
+                args:
+                  key: "suggestion-dislikes"
+                  value: "%user_id%"
+        actions:
+          - id: metaListAdd
+            args:
+              key: "suggestion-dislikes"
+              value: "%user_id%"
+          - id: metaListRemove # Remove the user's dislike if they liked the suggestion.
+            args:
+              key: "suggestion-likes"
+              value: "%user_id%"
       - id: reply # Reply to the user that their like has been recorded.
         args:
           ephemeral: true
           components:
             - type: text-display
-              content: "Your like has been recorded! Thank you for your feedback."
-
-  - triggers: buttonClick # Trigger when a button is clicked.
-    conditions:
-      - id: 'contentEquals' # Check the id of the button.
-        args:
-          value: "script_suggestion-dislike"
-      - id: '!metaIncludes' # Check if the user has not already disliked the suggestion.
-        args:
-          key: "suggestion-dislikes"
-          value: "%user_id%"
-        not-met-actions:
-          - id: metaListRemove
-            args:
-              key: "suggestion-dislikes"
-              value: "%user_id%"
-          - id: editMessage # Edit the message to update the dislike count.
-            args:
-              components:
-                - type: text-display
-                  content: | 
-                    ### New suggestion from %meta_suggestion-author%
-                    %meta_suggestion%
-                - type: action-row
-                  components:
-                    - type: button
-                      style: primary
-                      label: "Like (%meta_suggestion-likes_length%)"
-                      custom-id: "script_suggestion-like"
-                    - type: button
-                      style: secondary
-                      label: "Dislike (%meta_suggestion-dislikes_length%)"
-                      custom-id: "script_suggestion-dislike"
-          - id: reply # Reply to the user that they have already disliked the suggestion.
-            args:
-              ephemeral: true
-              components:
-                - type: text-display
-                  content: "You have already disliked this suggestion, your vote has been removed."
-    actions: # If the user has not already disliked the suggestion, add their dislike and edit the message.
-      - id: metaListAdd 
-        args:
-          key: "suggestion-dislikes"
-          value: "%user_id%"
-      - id: metaListRemove # Remove the user's like if they disliked the suggestion.
-        args:
-          key: "suggestion-likes"
-          value: "%user_id%"
-      - id: editMessage # Edit the message to update the dislike count.
+              content: "Your vote has been recorded! Thank you for your feedback."
+      - id: editMessage # Edit the message to update the count.
         args:
           components:
             - type: text-display
@@ -302,11 +244,5 @@ actions:
                   style: secondary
                   label: "Dislike (%meta_suggestion-dislikes_length%)"
                   custom-id: "script_suggestion-dislike"
-      - id: reply # Reply to the user that their dislike has been recorded.
-        args:
-          ephemeral: true
-          components:
-            - type: text-display
-              content: "Your dislike has been recorded! Thank you for your feedback."
 ```
 </CodeGroup>
