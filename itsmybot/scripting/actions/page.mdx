@@ -76,6 +76,41 @@ actions:
 ```
 </CodeGroup>
 
+## createChannel
+Create a channel. 
+
+**Can triggers actions**
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: createChannel
+args:
+  value: # Channel name
+  channel-type: # Channel type, optional. Default is text
+  parent: # Parent channel ID, optional
+  description: # Channel description, optional
+  permission-overwrites: # Channel permissions, optional
+    - id: # Role or user ID
+      allow: # Permissions to allow, optional
+      deny: # Permissions to deny, optional
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: createChannel
+    args:
+      value: "new-channel" # Channel name, support placeholders & list for random names
+      channel-type: "text" # Channel type
+      parent: "123456789012345678" # Parent channel ID
+      description: "This is a new channel" # Channel description, support placeholders & list for random descriptions
+      permission-overwrites:
+        - id: "123456789012345678" # Role or user ID
+          allow: ["VIEW_CHANNEL"] # Permissions to allow
+          deny: ["SEND_MESSAGES"] # Permissions to deny
+  - id: createChannel
+    args:
+      value: "simple" # Channel name, support placeholders & list for random names
+```
+</CodeGroup>
+
 ## crosspostMessage
 Crosspost a message from an announcement channel to other channels.
 
@@ -89,6 +124,19 @@ actions:
 ```
 </CodeGroup>
 
+## deleteChannel
+Delete a channel. 
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: deleteChannel
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: deleteChannel
+```
+</CodeGroup>
+
 ## deleteMessage
 Delete a message.
 
@@ -99,6 +147,50 @@ id: deleteMessage
 ```yaml {{ title: 'Example' }}
 actions:
   - id: deleteMessage
+```
+</CodeGroup>
+
+## deleteThread
+Delete a thread.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: deleteThread
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: deleteThread
+```
+</CodeGroup>
+
+## editChannel
+Edit a channel.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: editChannel
+args:
+  value: # Channel name, optional
+  parent: # Parent channel ID, optional
+  description: # Channel description, optional
+  permission-overwrites: # Channel permissions, optional
+    - id: # Role or user ID
+      allow: # Permissions to allow, optional
+      deny: # Permissions to deny, optional
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: editChannel
+    args:
+      value: "edited-channel" # Channel name, support placeholders & list for random names
+      parent: "123456789012345678" # Parent channel ID
+      description: "This is an edited channel" # Channel description, support placeholders & list for random descriptions
+      permission-overwrites:
+        - id: "123456789012345678" # Role or user ID
+          allow: ["VIEW_CHANNEL"] # Permissions to allow
+          deny: ["SEND_MESSAGES"] # Permissions to deny
+  - id: editChannel
+    args:
+      value: "simple-edited" # Channel name, support placeholders & list for random names
 ```
 </CodeGroup>
 
@@ -118,6 +210,32 @@ actions:
       components:
         - type: text-display
           content: "Hello there !"
+```
+</CodeGroup>
+
+## editThread
+Edit a thread.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: editThread
+args:
+  value: # Thread name, optional
+  duration: # Thread auto archive duration in seconds, optional
+  tags: # Thread tags ID, optional (Only for forum posts)
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: editThread
+    args:
+      value: "edited-thread" # Thread name, support placeholders & list for random names
+      duration: 3600 # Thread auto archive duration in seconds (1 hour)
+      tags: # Thread tags ID, optional (Only for forum posts)
+        - "123456789012345678" # Tag ID
+        - "234567890123456789" # Tag ID
+  - id: editThread
+    args:
+      value: "simple-edited" # Thread name, support placeholders & list for random names
 ```
 </CodeGroup>
 
@@ -516,14 +634,17 @@ actions:
 </CodeGroup>
 
 ## startThread
-Start a thread. If the value is a array, a random value will be selected.
-***Can triggers actions**
+Start a thread. If made in a forum channel, it will create a forum post. If made in a text channel, it will create a thread.
 
+***Can triggers actions**
 <CodeGroup>
 ```yaml {{ title: 'Usage' }}
 id: startThread
 args:
   value: # String or array of strings, the thread name
+  duration: # Thread auto archive duration in seconds, optional
+  tags: # Thread tags ID, optional (Only for forum posts)
+  # <message configuration> required for forum posts (Only for forum posts)
 ```
 ```yaml {{ title: 'Example' }}
 actions:
@@ -535,6 +656,13 @@ actions:
       value:
         - "Thread 1" # Thread name
         - "Thread 2" # Thread name
+      duration: 3600 # Thread auto archive duration in seconds (1 hour)
+      tags: # Thread tags ID, optional (Only for forum posts)
+        - "123456789012345678" # Tag ID
+        - "234567890123456789" # Tag ID
+      components:
+        - type: text-display
+          content: "This is a forum post" # Required for forum posts
 ```
 </CodeGroup>
 
