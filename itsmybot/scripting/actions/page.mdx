@@ -111,6 +111,41 @@ actions:
 ```
 </CodeGroup>
 
+## createThread
+Create a thread in a channel. If made in a forum channel, it will create a forum post. If made in a text channel, it will create a thread.
+
+**Can triggers actions**
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: createThread
+args:
+  value: # String or array of strings, the thread name
+  duration: # Thread auto archive duration in seconds, optional
+  private: # Whether the thread is private or not, optional. Default is false
+  tags: # Thread tags ID, optional (Only for forum posts)
+  # <message configuration> required for forum posts (Only for forum posts)
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: createThread
+    args:
+      value: "Hello there !" # Thread name
+  - id: createThread
+    args:
+      value:
+        - "Thread 1" # Thread name
+        - "Thread 2" # Thread name
+      duration: 3600 # Thread auto archive duration in seconds (1 hour)
+      private: true # Whether the thread is private or not
+      tags: # Thread tags ID, optional (Only for forum posts)
+        - "123456789012345678" # Tag ID
+        - "234567890123456789" # Tag ID
+      components:
+        - type: text-display
+          content: "This is a forum post" # Required for forum posts
+```
+</CodeGroup>
+
 ## crosspostMessage
 Crosspost a message from an announcement channel to other channels.
 
@@ -634,7 +669,7 @@ actions:
 </CodeGroup>
 
 ## startThread
-Start a thread. If made in a forum channel, it will create a forum post. If made in a text channel, it will create a thread.
+Start a thread from a message.
 
 ***Can triggers actions**
 <CodeGroup>
@@ -643,8 +678,6 @@ id: startThread
 args:
   value: # String or array of strings, the thread name
   duration: # Thread auto archive duration in seconds, optional
-  tags: # Thread tags ID, optional (Only for forum posts)
-  # <message configuration> required for forum posts (Only for forum posts)
 ```
 ```yaml {{ title: 'Example' }}
 actions:
@@ -657,12 +690,6 @@ actions:
         - "Thread 1" # Thread name
         - "Thread 2" # Thread name
       duration: 3600 # Thread auto archive duration in seconds (1 hour)
-      tags: # Thread tags ID, optional (Only for forum posts)
-        - "123456789012345678" # Tag ID
-        - "234567890123456789" # Tag ID
-      components:
-        - type: text-display
-          content: "This is a forum post" # Required for forum posts
 ```
 </CodeGroup>
 
