@@ -307,6 +307,27 @@ conditions:
 ```
 </CodeGroup>
 
+## hasTag
+Check if a user has a certain tag.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: hasTag
+args:
+  value: #string or array of strings, the tag ID
+```
+```yaml {{ title: 'Example' }}
+conditions:
+  - id: hasTag
+    args:
+      value: "123456789012345678" # Tag ID
+  - id: hasTag
+    args:
+      value: 
+        - "234567890123456789" # Tag ID
+        - "345678901234567890" # Tag ID
+```
+</CodeGroup>
+
 ## inChannel
 Check if a message is in a certain channel or category.
 
