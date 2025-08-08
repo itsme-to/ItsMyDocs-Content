@@ -76,6 +76,41 @@ actions:
 ```
 </CodeGroup>
 
+## addTag
+Add a tag to a thread. The tag can be a string or an array of strings.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: addTag
+args:
+  value: # Tag ID
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: addTag
+    args:
+      value: "Tag1" # Tag ID
+  - id: addTag
+    args:
+      value:
+        - "Tag1" # Tag ID
+        - "Tag2" # Tag ID
+```
+</CodeGroup>
+
+## closeThread
+Close a thread.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: closeThread
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: closeThread
+```
+</CodeGroup>
+
 ## createChannel
 Create a channel. 
 
@@ -274,6 +309,19 @@ actions:
 ```
 </CodeGroup>
 
+## lockThread
+Lock a thread. This will prevent users from sending messages in the thread.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: lockThread
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: lockThread
+```
+</CodeGroup>
+
 ## metaAdd
 Increase the value of a key in the [meta](/itsmybot/scripting/meta) data. Only works with `number` type.
 
@@ -401,6 +449,18 @@ actions:
 ```
 </CodeGroup>
 
+## openThread
+Open a thread.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: openThread
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: openThread
+```
+</CodeGroup>
+
 ## pinMessage
 Pin a message.
 
@@ -506,6 +566,28 @@ actions:
       value:
         - "Admin" # Role ID or name
         - "Moderator" # Role ID or name
+```
+</CodeGroup>
+
+## removeTag
+Remove a tag from a thread. The tag can be a string or an array of strings.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: removeTag
+args:
+  value: # Tag ID
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: removeTag
+    args:
+      value: "Tag1" # Tag ID
+  - id: removeTag
+    args:
+      value:
+        - "Tag1" # Tag ID
+        - "Tag2" # Tag ID
 ```
 </CodeGroup>
 
@@ -668,6 +750,27 @@ actions:
 ```
 </CodeGroup>
 
+## setTag
+Set tags to a thread. The tag can be a string or an array of strings. If no value is provided, the tags will be removed.
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: setTag
+args:
+  value: # Tag ID
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: setTag
+    args:
+      value: "Tag1" # Tag ID
+  - id: setTag
+    args:
+      value:
+        - "Tag1" # Tag ID
+        - "Tag2" # Tag ID
+```
+</CodeGroup>
+
 ## startThread
 Start a thread from a message.
 
@@ -709,6 +812,19 @@ actions:
     args:
       value: "123456789012345678" # User ID or mention
       duration: 3600 # Duration in seconds (1 hour)
+```
+</CodeGroup>
+
+## unlockThread
+Unlock a thread. This will allow users to send messages in the thread.
+
+<CodeGroup>
+```yaml {{ title: 'Usage' }}
+id: unlockThread
+```
+```yaml {{ title: 'Example' }}
+actions:
+  - id: unlockThread
 ```
 </CodeGroup>
 
