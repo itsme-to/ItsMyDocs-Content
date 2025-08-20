@@ -68,7 +68,7 @@ Some actions have optional arguments that can be used to modify the behavior of 
   <Property name="every">
     Specify the action to activate every X time. This can be used to execute the action every X time.
   </Property>
-  <Property name="actions">
+  <Property name="follow-up-actions">
     Specific to only some actions. The actions inside will be triggered by the actions. Example: `sendMessage` action can trigger the `deleteMessage` action.
     ```yaml
     actions:
@@ -78,7 +78,7 @@ Some actions have optional arguments that can be used to modify the behavior of 
           components:
             - type: text-display
               content: "Hello there !"
-          actions:
+          follow-up-actions:
             - id: deleteMessage
               args:
                 delay: 5

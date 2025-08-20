@@ -114,7 +114,7 @@ actions:
 ## createChannel
 Create a channel. 
 
-**Can triggers actions**
+**Can triggers follow-up actions**
 <CodeGroup>
 ```yaml {{ title: 'Usage' }}
 id: createChannel
@@ -149,7 +149,7 @@ actions:
 ## createThread
 Create a thread in a channel. If made in a forum channel, it will create a forum post. If made in a text channel, it will create a thread.
 
-**Can triggers actions**
+**Can triggers follow-up actions**
 <CodeGroup>
 ```yaml {{ title: 'Usage' }}
 id: createThread
@@ -593,7 +593,7 @@ actions:
 
 ## reply
 Reply to a message or an interaction. You can see the [message configuration](/itsmybot/configuration/message) for more information.
-**Can triggers actions**
+**Can triggers follow-up actions**
 
 <CodeGroup>
 ```yaml {{ title: 'Usage' }}
@@ -675,7 +675,7 @@ actions:
 
 ## sendRequest
 Send a http request. New placeholders will be added when you trigger an action after this action. With the format `%data_<object>%`. If you want a value that is inside an object, you can add the path with underscore `_`. For example, if you want the value of `user.id`, you can use `%data_user_id%`.
-***Can triggers actions**
+***Can triggers follow-up actions**
 <CodeGroup>
 ```yaml {{ title: 'Usage' }}
 - id: sendRequest
@@ -774,7 +774,7 @@ actions:
 ## startThread
 Start a thread from a message.
 
-***Can triggers actions**
+***Can triggers follow-up actions**
 <CodeGroup>
 ```yaml {{ title: 'Usage' }}
 id: startThread
